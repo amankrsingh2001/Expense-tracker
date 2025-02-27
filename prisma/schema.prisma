@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  income    Income[]
+  expense   Expense[]
+  investment Investment[]
+  subscription Subscription[]
+}
+
+model Income {
+  id        String   @id @default(uuid())
+  name      String
+  notes     String?  @db.VarChar(100)
+  amount    String   @default("0")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  category  String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Expense{
+  id   String @id @default(uuid())
+  name String
+  notes  String? @db.VarChar(100)
+
+  //encrypted
+  price String
+
+  paid_via String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  category String
+
+  user User @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Investment{
+  id   String @id @default(uuid())
+  name String
+  notes  String? @db.VarChar(100)
+
+  //encrypted
+  price String
+
+  paid_via String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  category String
+
+  user User @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Subscription{
+  id  String @id @default(uuid())
+  name String 
+  notes String? @db.VarChar(100)
+  //encrypted
+  price String
+  user  User @relation(fields: [userId], references: [id])
+  userId  String
+}
+
+model Contact{
+  id   Int @id @default(autoincrement())
+  phone String
+  message String 
+
+}
