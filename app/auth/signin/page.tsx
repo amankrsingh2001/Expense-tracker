@@ -70,7 +70,7 @@ export default function Login(){
     {/* main section */}
 
     <div className="w-full flex justify-center items-center">
-      <div className="w-[80%]  flex justify-around border-2 border-gray-300 shadow-sm rounded-md h-[70vh]  p-6">
+      <div className="w-[80%]  flex justify-around border-2 border-gray-300 shadow-sm rounded-md  p-6">
         {/* first Section */}
         <div className="w-[35%]  ml-12 py-4">
           <div className="flex items-center gap-2 mb-6">
