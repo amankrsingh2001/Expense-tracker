@@ -116,7 +116,7 @@ export default function Login(){
                 className="h-10 border-2 pr-10 text-base"
               />
               <button
-                type="submit"
+                type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
               >
@@ -140,7 +140,7 @@ export default function Login(){
           </div>
 
 
-            <Button className="w-full mt-6 font-md text-md h-12">Sign Up</Button>
+            <Button type="submit" className="w-full mt-6 font-md text-md h-12">Sign Up</Button>
  
       <p className="text-center text-l text-gray-600 mt-6">
             Don't have an Account?{" "}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   ChevronRight,
@@ -17,9 +17,11 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+ 
+
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 py-4 px-4 md:px-6 transition-all duration-350 glass `}
+      className={`fixed top-0 left-0 right-0 z-50 py-4 px-4 md:px-6 transition-all duration-350 glass border-b-2 `}
     >
       <div className="container max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
@@ -57,7 +59,7 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center space-x-4">
             <ModeToggle />
-            <Link href={"/auth/signin"}>
+            <Link href={"auth/signin"}>
               <Button variant="outline" className="rounded-full px-5">
                 Login
               </Button>

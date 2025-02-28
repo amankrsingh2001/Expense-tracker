@@ -58,6 +58,7 @@ export default function SignupPage() {
 
   return (
     <div className="h-screen w-screen">
+      
       {/* navsection */}
       <div className="h-[10vh] sticky"></div>
 
@@ -130,7 +131,7 @@ export default function SignupPage() {
                   className="h-10 border-2 pr-10 text-base"
                 />
                 <button
-                  type="submit"
+                  type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
                 >
@@ -154,7 +155,7 @@ export default function SignupPage() {
             </div>
 
 
-              <Button className="w-full mt-6 font-md text-md h-12">Sign Up</Button>
+              <Button type="submit" className="w-full mt-6 font-md text-md h-12">Sign Up</Button>
    
         <p className="text-center text-l text-gray-600 mt-6">
               Already have an account?{" "}

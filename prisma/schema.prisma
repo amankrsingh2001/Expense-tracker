@@ -79,6 +79,9 @@ model Subscription{
   notes String? @db.VarChar(100)
   //encrypted
   price String
+  paid_via String
+  createdAt DateTime @default(now())
+  
   user  User @relation(fields: [userId], references: [id])
   userId  String
 }
