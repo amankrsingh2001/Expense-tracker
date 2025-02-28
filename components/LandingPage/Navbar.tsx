@@ -57,7 +57,7 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center space-x-4">
             <ModeToggle />
-            <Link href={"/api/auth/signin"}>
+            <Link href={"/auth/signin"}>
               <Button variant="outline" className="rounded-full px-5">
                 Login
               </Button>
