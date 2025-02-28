@@ -1,22 +1,22 @@
-"use client"
-import { ModeToggle } from "@/components/theme-toggler";
-import { Button } from "@/components/ui/button";
-import { DollarSign, PieChart, BarChart3, Calendar, Shield, ArrowRight, ChevronRight, Menu, X  } from "lucide-react";
-import Image from "next/image";
-import {useState} from "react"
+import CTA from "@/components/LandingPage/Cta";
+import Features from "@/components/LandingPage/Features";
+import Footer from "@/components/LandingPage/Footer";
+import Hero from "@/components/LandingPage/Hero";
+import Navbar from "@/components/LandingPage/Navbar";
+import Pricing from "@/components/LandingPage/Pricing";
+
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    
     <div>
-        
-
+      <Navbar />
+      <Hero />
+      <Features/>
+      <Pricing/>
+      <CTA/>
+      <Footer/>
     </div>
   );
 }
