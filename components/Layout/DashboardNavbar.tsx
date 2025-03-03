@@ -7,7 +7,8 @@ import { MessageSquarePlus } from 'lucide-react';
 import FeedbackForm from './FeedbackForm';
 
 export default function DashboardNavbar(){
-    const [feedBackModal, setFeedBackModal] = useState(false)
+    const [feedBackModal, setFeedBackModal] = useState<boolean>(false)
+
     const pathname = usePathname()
     
     return <div className="flex text-black items-center h-full  px-8 border-2 ">
@@ -19,7 +20,7 @@ export default function DashboardNavbar(){
                 }} className='text-xs relative'><MessageSquarePlus/> Feedback</Button>
                 {
                     feedBackModal && <div className='absolute -left-36 top-10 rounded-md'>
-                        <FeedbackForm/>
+                        <FeedbackForm  feedBackModal={feedBackModal} setFeedBackModal={setFeedBackModal}/>
                     </div>
 
                 }
