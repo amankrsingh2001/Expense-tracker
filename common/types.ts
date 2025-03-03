@@ -5,6 +5,7 @@ export const registerUser = z.object({
     firstName:z.string(),
     lastName:z.string(),
     password:z.string().min(5).max(20),
+    otp:z.string().optional()
 })
 
 export const loginUser = z.object({

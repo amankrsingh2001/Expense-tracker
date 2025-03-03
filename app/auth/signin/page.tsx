@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import {useState} from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { loginUser, registerUser } from "@/common/types";
+import { loginUser } from "@/common/types";
 import toast from "react-hot-toast";
 
 import {  signIn } from "next-auth/react";

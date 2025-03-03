@@ -67,7 +67,7 @@ export const POST = async(req:NextRequest)=>{
             data:{
                 name:parseData.data.name,
                 notes:parseData.data.notes,
-                price:parseData.data.price,
+                price:parseInt(parseData.data.price),
                 paid_via:parseData.data.paid_via,
                 category:parseData.data.category,
                 userId:session?.user.id

@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import axios from "axios"
 import { useRouter } from "next/navigation";
 import SecondSide from "@/components/SecondSide";
+import { encrypt } from "@/lib/Encrypt";
 
 
 
@@ -25,6 +26,7 @@ interface IFormValue {
 }
 
 export default function SignupPage() {
+  
   const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
   const {register, handleSubmit} = useForm<IFormValue>()
@@ -39,15 +41,25 @@ export default function SignupPage() {
       return;
     }
     try {
-      const createUser = await axios.post('/api/signup', data)
+      const encryptedData = encrypt(data)
+      localStorage.setItem("userData", encryptedData)
+
+      const createUser = await axios.post('/api/verify', {email:data.email})
+
+
       if(!createUser.data.success){
-        throw new Error("something went wrong")
+        throw new Error(createUser.data.message)
       }
       toast.success(createUser.data.message, {
         id:id
       })
-      router.push('/api/auth/signin')
+      router.push('/auth/verify')
     } catch (error) {
+      if(axios.isAxiosError(error)){
+        toast.error(error.response?.data.message || error.message,{
+          id:id
+        })
+      }
       const err = (error as Error).message
       toast.error(err,{
         id:id

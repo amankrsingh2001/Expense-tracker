@@ -27,7 +27,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <DollarSign className="h-8 w-8 text-primary" />
-            <span className="text-xl font-semibold">ExpenseOwl</span>
+            <span className="text-xl font-semibold">Tracker Pro</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
