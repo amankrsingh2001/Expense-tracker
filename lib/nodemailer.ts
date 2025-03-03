@@ -1,8 +1,10 @@
 import nodemailer from "nodemailer";
 
 export const mailSender = async (email: string, otp: string) => {
+
   try {
     let transporter = nodemailer.createTransport({
+
       host: process.env.MAIL_HOST,
       auth: {
         user: process.env.MAIL_USER,

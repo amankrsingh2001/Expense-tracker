@@ -30,7 +30,7 @@ export const POST = async (req: NextRequest) => {
         email: data.email,
       },
     });
-    
+
     if (deletePreviousOtp == null) {
       throw new Error("Something went wrong");
     }
@@ -54,7 +54,8 @@ export const POST = async (req: NextRequest) => {
         message: "Falied to create Otp",
       });
     }
-    const sendMail = mailSender(data.email, otp);
+    const sendMail = await mailSender(data.email, otp);
+
 
     if (!sendMail) {
       throw new Error("Error while sending Otp");
