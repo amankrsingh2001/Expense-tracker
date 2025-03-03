@@ -52,7 +52,7 @@ export default function Login(){
               })
             
             }
-            router.push('/dashboard/all')
+            router.push('/dashboard')
             
       } catch (error) {
           const err = (error as Error).message

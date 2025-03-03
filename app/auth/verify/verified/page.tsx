@@ -28,7 +28,7 @@ export default function Verified() {
             <div className="p-8 rounded-xl shadow-xl border-2 text-center">
                 <h2 className="text-2xl font-bold  mb-4">Verification Successful!</h2>
                 <p className="mb-6 font-serif">Your account has been verified successfully.</p>
-                <p className="font-serif">You will be redirect to Signin in <br/> ...{time} seconds</p>
+                <p className="font-serif">You will be redirect to Signin <br/> ...{time} seconds</p>
             </div>
         </div>
     );

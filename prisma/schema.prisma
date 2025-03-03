@@ -25,6 +25,7 @@ model User {
   expense      Expense[]
   investment   Investment[]
   subscription Subscription[]
+  feedback     Feedback[]
 }
 
 model otp {
@@ -98,4 +99,11 @@ model Contact {
   id      Int    @id @default(autoincrement())
   phone   String
   message String
+}
+
+model Feedback{
+  id    String   @id   @default(uuid())
+  details String 
+  user  User @relation(fields: [userId], references: [id])
+  userId String
 }
