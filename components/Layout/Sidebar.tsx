@@ -16,14 +16,14 @@ export default function Sidebar() {
   const router = useRouter();
   return (
     <div className="w-[4vw]  h-screen  bg-black flex flex-col items-center">
-      <div className="h-[3vw] w-[60%]  flex justify-center items-center gap-1 border-b-[1px] border-slate-400">
+      <div className="h-[3.5vw] w-[60%]  flex justify-center items-center gap-1 border-b-[1px] border-slate-400">
         <IndianRupee className="h-5 w-5 text-white" />
         <p className="font-serif text-lg text-white">TP</p>
       </div>
 
       <div className="text-white mt-8 flex flex-col gap-8 ">
         <div className="relative group  hover:bg-[#333333]  rounded-md ">
-          <p className="absolute left-10 bottom-1 bg-[#1c1c1c] px-2 py-2 text-sm rounded-md opacity-0 group-hover:opacity-100 transition-all delay-200">
+          <p className="absolute z-10 left-10 bottom-1 bg-[#1c1c1c] px-2 py-2 text-sm rounded-md opacity-0 group-hover:opacity-100 transition-all delay-200">
             Overview
           </p>
           <button className="px-2 py-2" onClick={() => router.push("/dashboard")}>
@@ -32,7 +32,7 @@ export default function Sidebar() {
         </div>
 
         <div className="relative group  hover:bg-[#333333]  rounded-md ">
-          <p className="absolute left-10 bottom-1 bg-[#1c1c1c] px-2 py-2 text-sm rounded-md opacity-0 group-hover:opacity-100 transition-all delay-200">
+          <p className="absolute z-10  left-10 bottom-1 bg-[#1c1c1c] px-2 py-2 text-sm rounded-md opacity-0 group-hover:opacity-100 transition-all delay-200">
             Income
           </p>
           <button className="px-2 py-2" onClick={() => router.push("/dashboard/income")}>
@@ -41,7 +41,7 @@ export default function Sidebar() {
         </div>
 
         <div className="relative group  hover:bg-[#333333]  rounded-md ">
-          <p className="absolute left-10 bottom-1 bg-[#1c1c1c] px-2 py-2 text-sm rounded-md opacity-0 group-hover:opacity-100 transition-all delay-200">
+          <p className="absolute z-10  left-10 bottom-1 bg-[#1c1c1c] px-2 py-2 text-sm rounded-md opacity-0 group-hover:opacity-100 transition-all delay-200">
             Expense
           </p>
           <button className="px-2 py-2" onClick={() => router.push("/dashboard/expense")}>
@@ -50,7 +50,7 @@ export default function Sidebar() {
         </div>
 
         <div className="relative group hover:bg-[#333333]  rounded-md ">
-          <p className="absolute left-10 bottom-1 bg-[#1c1c1c] px-2 py-2 text-sm rounded-md opacity-0 group-hover:opacity-100 transition-all delay-200">
+          <p className="absolute z-10  left-10 bottom-1 bg-[#1c1c1c] px-2 py-2 text-sm rounded-md opacity-0 group-hover:opacity-100 transition-all delay-200">
             Investment
           </p>
           <button className="px-2 py-2" onClick={() => router.push("/dashboard/investment")}>
@@ -59,7 +59,7 @@ export default function Sidebar() {
         </div>
 
         <div className="relative group  hover:bg-[#333333]  rounded-md ">
-          <p className="absolute left-10 bottom-1 bg-[#1c1c1c] px-2 py-2 text-sm rounded-md opacity-0 group-hover:opacity-100 transition-all delay-200">
+          <p className="absolute z-10  left-10 bottom-1 bg-[#1c1c1c] px-2 py-2 text-sm rounded-md opacity-0 group-hover:opacity-100 transition-all delay-200">
             Subscription
           </p>
           <button className="px-2 py-2" onClick={() => router.push("/dashboard/subscription")}>

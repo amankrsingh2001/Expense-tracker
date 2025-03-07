@@ -1,8 +1,10 @@
-import { ExpenseAndInvestmentValidation } from "@/common/types";
-import { prisma } from "@/lib/prisma";
+
+
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/options";
+import { ExpenseValidation } from "@/common/types";
+import { prisma } from "@/lib/prisma";
 
 
 export const GET = async(req:NextRequest)=>{
@@ -45,6 +47,7 @@ export const GET = async(req:NextRequest)=>{
 
 export const POST = async(req:NextRequest)=>{
     const data = await req.json()
+    console.log(data)
     try {
         const session = await getServerSession(authOptions)
         if(session == null || session.user == undefined){
@@ -53,7 +56,7 @@ export const POST = async(req:NextRequest)=>{
                     message:"Session Not valid"
                 })
             }
-        const parseData = ExpenseAndInvestmentValidation.safeParse(data)
+        const parseData = ExpenseValidation.safeParse(data)
         if(!parseData.success){
             return NextResponse.json({
                 success:false,
@@ -67,8 +70,9 @@ export const POST = async(req:NextRequest)=>{
             data:{
                 name:parseData.data.name,
                 notes:parseData.data.notes,
-                price:parseData.data.price,
-                paid_via:parseData.data.paid_via,
+                price:parseInt(parseData.data.price),
+                createdAt:new Date(parseData.data.spentDate),
+                paid_via:parseData.data.paidVia,
                 category:parseData.data.category,
                 userId:session?.user.id
             }

@@ -46,13 +46,17 @@ export default function Login(){
               password:parseData.data.password
             });
 
+            console.log(result)
             if(result?.ok){
               toast.success("Logged in Successfully",{
                 id:id
               })
-            
+              router.push('/dashboard')
             }
-            router.push('/dashboard')
+            if(result?.status == 401){
+              throw new Error(result?.error as string)
+            }
+            
             
       } catch (error) {
           const err = (error as Error).message
@@ -63,7 +67,7 @@ export default function Login(){
     }
 
 
-    return <div className="h-screen w-screen">
+    return <div className="h-screen w-screen" suppressHydrationWarning>
     {/* navsection */}
     <div className="h-[10vh] sticky"></div>
 

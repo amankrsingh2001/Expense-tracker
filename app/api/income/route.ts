@@ -44,6 +44,7 @@ export const Get=async(req:NextRequest)=>{
 
 
 export const  POST = async(req:NextRequest)=>{
+
     const session = await getServerSession(authOptions)
 
     if(session == null || session.user == undefined){
@@ -54,6 +55,7 @@ export const  POST = async(req:NextRequest)=>{
     }
    
     const data = await req.json()
+
     try {
         const parseData =  IncomeValidation.safeParse(data)
         if(!parseData.success){
@@ -68,18 +70,34 @@ export const  POST = async(req:NextRequest)=>{
             data:{
                 name:parseData.data.name,
                 notes:parseData.data.notes,
-                amount:parseData.data.amount,
+                amount:parseInt(parseData.data.amount),
                 category:parseData.data.category,
-                userId:session?.user?.id 
+                createdAt:new Date(parseData.data.recievedDate),
+                userId:session?.user?.id
+            },
+            select:{
+                id:true,
+                name:true,
+                notes:true,
+                category:true,
+                createdAt:true,
+                amount:true,
+
+
             }
         })
-        console.log(createIncome)
+
         if(!createIncome || !createIncome.id){
             throw new Error("Faild to create Income")
         }
+
+        console.log(createIncome)
+      
+
         return NextResponse.json({
             message:"Income added successfully",
-            success:true
+            success:true,
+            newIncome:createIncome
         },{
             status:200
         })

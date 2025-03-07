@@ -1,10 +1,11 @@
 "use client"
 
+import LayoutHeader from "@/components/Layout/LayoutHeader";
+import { LayoutDashboard } from "lucide-react";
 import { signOut } from "next-auth/react";
 
 export default function Dashboard(){
-    return (<div>
-     
-        <button onClick={()=>signOut({callbackUrl: 'http://localhost:3000/auth/signin'})}>Click to logout</button>
+    return (<div className={`w-full`}>
+        <LayoutHeader title={"Overview"} showDateCard={true}/>
     </div>)
 }

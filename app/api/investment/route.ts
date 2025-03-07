@@ -1,10 +1,10 @@
-import { ExpenseAndInvestmentValidation } from "@/common/types";
+import {  InvestmentValidation } from "@/common/types";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/options";
 
-//unit is pending
+
 export const GET = async(req:NextRequest)=>{
     try {
         const session = await getServerSession(authOptions)
@@ -45,6 +45,7 @@ export const GET = async(req:NextRequest)=>{
 
 export const POST = async(req:NextRequest)=>{
     const data = await req.json()
+    console.log(data)
     try {
         const session = await getServerSession(authOptions)
         if(session == null || session.user == undefined){
@@ -53,7 +54,10 @@ export const POST = async(req:NextRequest)=>{
                     message:"Session Not valid"
                 })
             }
-        const parseData = ExpenseAndInvestmentValidation.safeParse(data)
+        const parseData = InvestmentValidation.safeParse(data)
+
+        console.log(parseData.error)
+  
         if(!parseData.success){
             return NextResponse.json({
                 success:false,
@@ -63,23 +67,24 @@ export const POST = async(req:NextRequest)=>{
             })
         }
 
-        const createExpense = await prisma.investment.create({
+        const createInvestment = await prisma.investment.create({
             data:{
                 name:parseData.data.name,
                 notes:parseData.data.notes,
-                price:parseInt(parseData.data.price),
-                paid_via:parseData.data.paid_via,
+                createdAt:new Date(parseData.data.boughtDate),
+                price:parseInt(parseData.data.stockPrice),
+                unit:parseInt(parseData.data.units),
                 category:parseData.data.category,
                 userId:session?.user.id
             }
         })
 
-        if(!createExpense || !createExpense.id){
-            throw new Error("Faild to create Expense")
+        if(!createInvestment || !createInvestment.id){
+            throw new Error("Faild to create Investment")
         }
         return NextResponse.json({
             success:true,
-            message:"Expense Added Successfully"
+            message:"Investment Added Successfully"
         },{
             status:200
         })
