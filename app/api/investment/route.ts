@@ -84,7 +84,8 @@ export const POST = async(req:NextRequest)=>{
         }
         return NextResponse.json({
             success:true,
-            message:"Investment Added Successfully"
+            message:"Investment Added Successfully",
+            investment:createInvestment
         },{
             status:200
         })

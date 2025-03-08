@@ -47,7 +47,6 @@ export const GET = async(req:NextRequest)=>{
 
 export const POST = async(req:NextRequest)=>{
     const data = await req.json()
-    console.log(data)
     try {
         const session = await getServerSession(authOptions)
         if(session == null || session.user == undefined){
@@ -83,7 +82,8 @@ export const POST = async(req:NextRequest)=>{
         }
         return NextResponse.json({
             success:true,
-            message:"Expense Added Successfully"
+            message:"Expense Added Successfully",
+            expense:createExpense
         },{
             status:200
         })

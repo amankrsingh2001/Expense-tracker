@@ -31,14 +31,15 @@ export default function ExpenseModal({title ,modal, setModal, api, setExpenseVal
 
   const formHandler = async(data:any)=>{
     const id = toast.loading('...Adding')
-    console.log(data)
     try {
       
       const addData = await axios.post(api, data)
-      console.log(addData)
+      console.log(addData.data)
       toast.success('Added',{
         id:id
       })
+      addData.data.expense.createdAt = new Date(addData.data.expense.createdAt)
+      setExpenseValue((prev:any)=>[...prev, addData.data.expense])
     } catch (error) { 
       console.log(error)
       if(axios.isAxiosError(error)){

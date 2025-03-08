@@ -2,7 +2,9 @@
 
 import LayoutHeader from "@/components/Layout/LayoutHeader";
 import { GetAllExpense } from "./expenseApi";
-import ExpensePage from "@/components/Expense/ExpensePage";
+import ExpensePage from "./ExpensePage";
+
+
 
 
 export default async function Expense(){

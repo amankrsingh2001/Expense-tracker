@@ -1,6 +1,6 @@
 interface ShowCardDetalils{
     title:string,
-    Amount:number,
+    Amount:number | string,
     icon?:React.ReactNode
 }
 

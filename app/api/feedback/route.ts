@@ -2,15 +2,10 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/options";
+import { customError } from "@/lib/Error";
 
 
-class customError extends Error{
-    status:number
-    constructor(error:string, status:number){
-        super(error)
-        this.status= status
-    }
-}
+
 
 export const POST = async(req:NextRequest)=>{
     try {

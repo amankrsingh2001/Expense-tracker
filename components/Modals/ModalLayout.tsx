@@ -14,11 +14,13 @@ interface ModalType {
     title:string,
     api:string,
     setIncomeValue?:any,
-    setExpenseValue?:any
+    setExpenseValue?:any,
+    setInvestValue?:any,
+    setSubsValue?:any
 
 }
 
-export default function ModalLayout({type, title, api, setIncomeValue, setExpenseValue}:ModalType){
+export default function ModalLayout({type, title, api, setIncomeValue, setExpenseValue,setInvestValue,setSubsValue}:ModalType){
 
     const [modal, setModal] = useState<boolean>(false)
 
@@ -47,12 +49,12 @@ export default function ModalLayout({type, title, api, setIncomeValue, setExpens
     
 
     {
-      type == "investment" && modal && <InvestmentModal title ={title} modal={modal} setModal={setModal} api={api}/>
+      type == "investment" && modal && <InvestmentModal title ={title} modal={modal} setModal={setModal} api={api} setInvestValue={setInvestValue}/>
     }
 
     
     {
-      type == "subscription" && modal && <SubscriptionModal title ={title} modal={modal} setModal={setModal} api={api}/>
+      type == "subscription" && modal && <SubscriptionModal title ={title} modal={modal} setModal={setModal} api={api} setSubsValue={setSubsValue}/>
     }
   </div>
 }

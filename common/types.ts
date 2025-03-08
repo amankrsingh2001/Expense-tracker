@@ -33,19 +33,18 @@ export const ExpenseValidation = z.object({
 
 export const InvestmentValidation = z.object({
     name:z.string(),
-    stockPrice:z.string(),
-    
+    stockPrice:z.string(),    
     units:z.string(),
     category:z.string(),
     boughtDate:z.string(),
     notes:z.string().optional()
 })
 
-export const Subscription = z.object({
+export const SubscriptionValidation = z.object({
     name:z.string(),
     notes:z.string().optional(),
     price:z.string(),
-    paid_via:z.string(),
-    category:z.string(),
-    userId:z.string()
+    paid:z.enum(["monthly", "yearly"]),
+    boughtDate:z.string(),
+    url:z.string()
 })

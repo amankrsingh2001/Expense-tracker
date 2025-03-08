@@ -48,8 +48,6 @@ model Income {
   userId    String
 }
 
-
-
 model Expense {
   id    String  @id @default(uuid())
   name  String
@@ -66,8 +64,6 @@ model Expense {
   user   User   @relation(fields: [userId], references: [id])
   userId String
 }
-
-
 
 model Investment {
   id    String  @id @default(uuid())
@@ -86,16 +82,21 @@ model Investment {
 }
 
 model Subscription {
-  id        String   @id @default(uuid())
-  name      String
-  notes     String?  @db.VarChar(100)
+  id           String    @id @default(uuid())
+  name         String
+  notes        String?   @db.VarChar(100)
   //encrypted
-  price     Int
-  paid_via  String
-  createdAt DateTime @default(now())
+  price        Int
+  createdAt    DateTime  @default(now())
+  updateAt     DateTime  @default(now())
+  paid         Paid      @default(monthly)
+  url          String
+  active       Boolean
+  cancelled_at DateTime?
+  renewal_date DateTime?
 
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
+  user         User   @relation(fields: [userId], references: [id])
+  userId       String
 }
 
 model Contact {
@@ -104,9 +105,14 @@ model Contact {
   message String
 }
 
-model Feedback{
-  id    String   @id   @default(uuid())
-  details String 
-  user  User @relation(fields: [userId], references: [id])
-  userId String
+model Feedback {
+  id      String @id @default(uuid())
+  details String
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+}
+
+enum Paid {
+  monthly
+  yearly
 }

@@ -2,11 +2,11 @@
 
 import { Apis } from "@/lib/Apis";
 import { useState } from "react";
-import ModalLayout from "../Modals/ModalLayout";
+import ModalLayout from "../../../components/Modals/ModalLayout";
 import { TotalAmount } from "@/lib/Data";
-import ShowCard from "../ShowCard";
+import ShowCard from "../../../components/ShowCard";
 import { IndianRupee } from "lucide-react";
-import TableFormat from "../Table";
+import TableFormat from "../../../components/Table";
 
 interface ExpenseData {
   expense: any;

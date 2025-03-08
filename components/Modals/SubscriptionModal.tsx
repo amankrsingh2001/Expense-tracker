@@ -21,20 +21,28 @@ interface ModalData {
   modal: boolean;
   setModal: any;
   api:string
+  setSubsValue:any
 }
-export default function SubscriptionModal({title,modal,setModal,api}: ModalData) {
+export default function SubscriptionModal({title,modal,setModal,api, setSubsValue}: ModalData) {
 
   const {register, handleSubmit, setValue}  = useForm()
 
   const formHandler = async(data:any)=>{
+
+    console.log(data)
+
     const id = toast.loading('...Adding')
+
     try {
       
       const addData = await axios.post(api, data)
-      console.log(addData)
+
       toast.success('Added',{
         id:id
       })
+      addData.data.subscription.createdAt = new Date(addData.data.subscription.createdAt)
+      addData.data.subscription.renewal_date = new Date(addData.data.subscription.renewal_date)
+      setSubsValue((prev:any)=>[...prev, addData.data.subscription])
     } catch (error) { 
       console.log(error)
       if(axios.isAxiosError(error)){
@@ -71,7 +79,7 @@ export default function SubscriptionModal({title,modal,setModal,api}: ModalData)
           </h3>
           <div className="flex flex-col gap-3">
             <Label htmlFor="name" className="text-md">Name</Label>
-            <Input {...register("name")} name="name" id="name" className="outline-4 border-2" placeholder="Salary" />
+            <Input {...register("name")} name="name" id="name" className="outline-4 border-2" placeholder="Website name" />
           </div>
     
 
@@ -79,9 +87,9 @@ export default function SubscriptionModal({title,modal,setModal,api}: ModalData)
               <div className="w-full">
                 <Label htmlFor="website"  className="text-md ">Website</Label>
                 <Input
-                {...register("website")}
-                id="website"
-                name="website"
+                {...register("url")}
+                id="url"
+                name="url"
                   className="border-2"
                   type="text"
                   placeholder="https://nextflix.com"
@@ -120,13 +128,13 @@ export default function SubscriptionModal({title,modal,setModal,api}: ModalData)
                 </div>
                 <div>
                   <Label htmlFor="paying" className="text-md">Paying</Label>
-                  <Select onValueChange={(value)=>setValue('paying', value)}>
+                  <Select onValueChange={(value)=>setValue('paid', value)}>
                     <SelectTrigger className="w-[140px] border-2">
                       <SelectValue placeholder="Monthly" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Monthly">Monthly</SelectItem>
-                      <SelectItem value="Yearly">Yearly</SelectItem>
+                      <SelectItem value="monthly">Monthly</SelectItem>
+                      <SelectItem value="yearly">Yearly</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

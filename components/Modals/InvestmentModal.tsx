@@ -21,22 +21,27 @@ interface ModalData {
   modal: boolean;
   setModal: any;
   api:string
+  setInvestValue:any
 }
-export default function InvestmentModal({title,modal,setModal,api}: ModalData) {
+export default function InvestmentModal({title,modal,setModal,api, setInvestValue}: ModalData) {
 
   const {register, handleSubmit, setValue}  = useForm()
 
   const formHandler = async(data:any)=>{
-    console.log(data)
 
     const id = toast.loading('...Adding')
+    
     try {
-      
       const addData = await axios.post(api, data)
-      console.log(addData)
+
       toast.success('Added',{
         id:id
       })
+
+      addData.data.investment.createdAt = new Date(addData.data.investment.createdAt)
+
+      setInvestValue((prev:any)=>[...prev, addData.data.investment])
+
     } catch (error) { 
       console.log(error)
       if(axios.isAxiosError(error)){
