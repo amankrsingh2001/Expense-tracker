@@ -26,9 +26,9 @@ export const POST = async(req:NextRequest)=>{
             renewalDate.setMonth(renewalDate.getMonth()+1)
         }else{
              renewalDate = new Date(parseData.data.boughtDate)
-            renewalDate.setMonth(renewalDate.getFullYear()+1)
+            renewalDate.setFullYear(renewalDate.getFullYear()+1)
         }
-        console.log(renewalDate)
+
         
         const createSubscription = await prisma.subscription.create({
             data:{

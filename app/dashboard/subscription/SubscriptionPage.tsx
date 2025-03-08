@@ -8,6 +8,7 @@ import ShowCard from "../../../components/ShowCard";
 import { IndianRupee } from "lucide-react";
 
 import SubscriptionTable from "./SubscriptionTable";
+import ActiveCancelCard from "@/components/ActiveCancel";
 
 interface Subs {
   subscriptionValue: any;
@@ -32,18 +33,20 @@ export default function SubscriptionPage({ subscriptionValue }: Subs) {
 
   const active = TotalActive(subsValue)
 
+  const cancel = subsValue.length-active;
+
 
 
   return (
-    <div className=" px-4 py-4 flex flex-col gap-4">
+    <div className=" px-4 py-4 flex flex-col gap-4" >
       <h3 className="text-lg font-semibold ">Summary</h3>
       <div className="flex  gap-10">
          <ShowCard title={"Total Subscription"} Amount={subsValue.length || 0} />
        
-         <ShowCard
+         <ActiveCancelCard
           title={"Active - Cancel"}
-          Amount={`${active}-${subsValue.length-active}  `}
-          icon={<IndianRupee className="w-6 h-6 font-bold" />}
+          Amount={active}
+          cancel={cancel}
         /> 
          <ShowCard
           title={"Total Active Monthly"}

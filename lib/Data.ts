@@ -9,7 +9,15 @@ export const TotalUnit =(data:any)=>{
     const totalUnit = data.reduce((accumulator:number, currentValue:any)=>{
             return accumulator+currentValue.unit
     },0)
-    return totalUnit
+    return totalUnit 
+}
+
+export const TotalAmountInvested = (data:any)=>{
+   
+    const totalAmount = data.reduce((accumulator:number, currentValue:any)=>{
+        return accumulator + (currentValue.unit*currentValue.price)
+    },0)
+    return totalAmount
 }
 
 export const TotalActive = (data:any)=>{
@@ -20,6 +28,14 @@ export const TotalActive = (data:any)=>{
         }
     })
     return val;
+}
+
+export const TotalSubscription = (data:any)=>{
+
+    const TotalSubscription = data.reduce((accumulator:number, currentValue:any)=>{
+        return accumulator+currentValue.price
+    },0)
+    return TotalSubscription
 }
 
 export const TotalActiveMonthly = (data:any)=>{
@@ -41,3 +57,7 @@ export const TotalActiveYearly = (data:any)=>{
 
     
 }
+
+export const formattedAmount = (Amount: number) => {
+    return Amount.toLocaleString("en-IN"); // For Indian numbering system
+  };
