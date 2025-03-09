@@ -60,7 +60,7 @@ export default function SubscriptionPage({ subscriptionValue }: Subs) {
         /> 
       </div>
 
-      <SubscriptionTable formatTable={formatTable} tableData={subsValue}/>
+      <SubscriptionTable formatTable={formatTable} tableData={subsValue} setSubsValue={setSubsValue}/>
 
       <ModalLayout
         type={"subscription"}

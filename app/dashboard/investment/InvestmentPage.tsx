@@ -44,7 +44,7 @@ export default function InvestmentPage({investment}:any){
         Amount={totalUnit || 0}
       />
     </div>
-      <InvestmentTable formatTable={formatTable} tableData={investValue} />
+      <InvestmentTable formatTable={formatTable} tableData={investValue} setInvestValue ={setInvestValue}/>
 
     <ModalLayout type={"investment"} title={"Add Investment"} api={Apis.addInvestment} setInvestValue ={setInvestValue}/>
    

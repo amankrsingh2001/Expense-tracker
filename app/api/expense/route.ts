@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/options";
 import { ExpenseValidation } from "@/common/types";
 import { prisma } from "@/lib/prisma";
+import { customError } from "@/lib/Error";
 
 
 export const GET = async(req:NextRequest)=>{
@@ -97,3 +98,51 @@ export const POST = async(req:NextRequest)=>{
         })
     }
 }
+
+export const DELETE = async (req: NextRequest) => {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    if (id == null) {
+      throw new customError("Id isnt valid", 401);
+    }
+    const session = await getServerSession(authOptions);
+    const deleteField = await prisma.expense.delete({
+      where: {
+        id: id,
+        userId: session?.user.id,
+      },
+    });
+    return NextResponse.json(
+      {
+        message: "Deleted Expense Successfully",
+        success: true,
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    if (error instanceof customError) {
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        {
+          status: error.status,
+        }
+      );
+    } else {
+      const err = (error as Error).message;
+      return NextResponse.json(
+        {
+          success: false,
+          message: err || "Something went wrong",
+        },
+        {
+          status: 500,
+        }
+      );
+    }
+  }
+};

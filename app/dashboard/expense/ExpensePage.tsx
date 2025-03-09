@@ -40,7 +40,7 @@ export default function ExpensePage({ expense }: ExpenseData) {
         />
       </div>
 
-      <TableFormat formatTable={formatTable} tableData={expenseValue}/>
+      <TableFormat formatTable={formatTable} tableData={expenseValue} setValue={setExpenseValue} api={Apis.addExpense}/>
 
       <ModalLayout
         type={"expense"}

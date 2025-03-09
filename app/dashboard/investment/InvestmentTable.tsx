@@ -11,7 +11,9 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { DateFormatter } from "@/lib/DateFormatter"
-import { IndianRupee } from "lucide-react"
+import axios from "axios"
+import { IndianRupee, Pen, Trash, Trash2 } from "lucide-react"
+import toast from "react-hot-toast"
   
   
   interface TableFormat{
@@ -28,9 +30,40 @@ import { IndianRupee } from "lucide-react"
   interface TableData {
     formatTable:TableFormat,
     tableData?:any
+    setInvestValue:any
   }
-  export default function InvestmentTable({formatTable, tableData}:TableData) {
-    console.log(tableData)
+  export default function InvestmentTable({formatTable, tableData, setInvestValue}:TableData) {
+    
+    const deleteHandler = async(data:any)=>{
+      const id = toast.loading("...Deleting")
+        try {
+
+          if(!data.id){
+            toast.error("Id isn't found",{id:id})
+            return;
+          }
+
+          const deleteFiled = await axios.delete(`/api/investment?id=${data?.id}`)
+          if(deleteFiled.data.success){
+            // @ts-ignore
+            const investData = tableData.filter((val)=>{
+              return val.id != data.id
+            })
+            setInvestValue(investData)
+          }
+
+          toast.success("Deleted",{id:id})
+
+        } catch (error) {
+          if(axios.isAxiosError(error)){
+            toast.error('Axios error',{id:id})
+          }else{
+            toast.error("No error",{id:id})
+          }
+          
+        }
+      }
+
 
     return (
 
@@ -73,8 +106,9 @@ import { IndianRupee } from "lucide-react"
         <TableCell className="p-4 text-center capitalize">{data.category}</TableCell>
       
         <TableCell className="p-4 text-center capitalize ">{data.notes || "No notes added"}</TableCell>
-        <TableCell className="p-4 text-center">
-          <button onClick={()=>console.log(data)} className="text-red-500 hover:underline">Delete</button>
+        <TableCell className="p-4 text-center space-x-3">
+          <button><Pen className="text-black w-4 h-4"/> </button>
+          <button onClick={()=>deleteHandler(data)} className=""><Trash2 className="text-black w-4 h-4"/></button>
         </TableCell>
       </TableRow>
     ))}

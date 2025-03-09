@@ -16,7 +16,7 @@ interface LayoutValue{
 export default function LayoutHeader({title, showDateCard}:LayoutValue){
     const [feedBackModal, setFeedBackModal] = useState<boolean>(false)
 
-    return  (<div className=" border-b-[1px] flex flex-col w-full h-[7svh]">
+    return  (<div className=" border-b-[1px] flex flex-col w-full h-[7vh]">
       
       <div className="flex text-black items-center h-full  px-8 border-2 ">
           <h1 className='capitalize font-bold text-3xl'>{title}</h1>

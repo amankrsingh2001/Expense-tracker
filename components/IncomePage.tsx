@@ -35,7 +35,7 @@ export default function IncomePage({ income }: any) {
         />
       </div>
 
-      <TableFormat formatTable={formatTable} tableData={incomeValue} />
+      <TableFormat formatTable={formatTable} tableData={incomeValue}  api={Apis.addIncome}  setValue={setIncomeValue}/>
 
       <ModalLayout
         type={"income"}

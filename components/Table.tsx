@@ -11,7 +11,9 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { DateFormatter } from "@/lib/DateFormatter"
-import { IndianRupee } from "lucide-react"
+import axios from "axios"
+import { IndianRupee, Trash2 } from "lucide-react"
+import toast from "react-hot-toast"
   
   
   interface TableFormat{
@@ -27,9 +29,32 @@ import { IndianRupee } from "lucide-react"
   interface TableData {
     formatTable:TableFormat,
     tableData?:any
+    api:string,
+    setValue:any
   }
-  export default function TableFormat({formatTable, tableData}:TableData) {
+  export default function TableFormat({formatTable, tableData, api, setValue}:TableData) {
+    const deleteHandler = async(data:any)=>{
+      const id = toast.loading('...deleting')
+      try {
+        if(!data.id){
+          toast.error("Data not found",{id:id})
+          return;
+        }
+        const deleteField = await axios.delete(`${api}?id=${data.id}`)
+        if(deleteField.data.success){
+          // @ts-ignore
+          const newData = tableData.filter((val)=>{
+            return val.id != data.id
+          })
+          setValue(newData)
+        }
+        toast.success("Deleted Successfully",{id:id})
 
+      } catch (error) {
+        
+      }
+    }
+    
     return (
 
       <div>
@@ -68,7 +93,7 @@ import { IndianRupee } from "lucide-react"
         }
         <TableCell className="p-4 text-left capitalize">{data.notes}</TableCell>
         <TableCell className="p-4 text-center">
-          <button onClick={()=>console.log(data)} className="text-red-500 hover:underline">Delete</button>
+          <button onClick={()=>deleteHandler(data)} className="text-red-500 hover:underline"><Trash2 className="w-4 h-4 text-black"/></button>
         </TableCell>
       </TableRow>
     ))}

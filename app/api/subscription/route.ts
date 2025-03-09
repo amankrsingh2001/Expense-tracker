@@ -76,3 +76,42 @@ export const POST = async(req:NextRequest)=>{
        }
     }
 }
+
+export const DELETE = async(req:NextRequest)=>{
+    try {
+        const { searchParams } = new URL(req.url);
+        const id = searchParams.get("id");
+
+        const session = await getServerSession(authOptions)
+        if(!id || !session?.user.id){
+            throw new customError("Id Not found", 404)
+        }
+        const deleteSubs = await prisma.subscription.delete({
+            where:{
+                id:id,
+                userId:session.user.id
+            }
+        })
+        return NextResponse.json({
+            success:true,
+            message:"Removed Subscription successfully"
+        })
+    } catch (error) {
+        if(error instanceof customError){
+            return NextResponse.json({
+                success:false,
+                message:error.message
+            },{
+                status:error.status
+            })
+        }else{
+            const err = (error as Error).message
+            return NextResponse.json({
+                message:err,
+                success:false
+            },{
+                status:500
+            })
+        }
+    }
+}
