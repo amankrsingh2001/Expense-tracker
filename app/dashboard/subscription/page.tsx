@@ -3,14 +3,20 @@ import ModalLayout from "@/components/Modals/ModalLayout";
 import { Apis } from "@/lib/Apis";
 import SubscriptionPage from "./SubscriptionPage";
 import { getSubsData } from "./subsApi";
+import { DateRange } from "react-day-picker";
 
 
 export default async function Subscription() {
-  const subsData = await getSubsData()
+  const defaultDate:DateRange = {
+    from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    to: new Date(Date.now()),
+}
+
+  const subsData = await getSubsData(defaultDate)
 
   return (
     <div className={`w-full`}>
-      <LayoutHeader title={"Subscription"} showDateCard={false} />
+      <LayoutHeader title={"Subscription"}  />
       <div>
         <SubscriptionPage subscriptionValue={subsData}/>
         {/* <ModalLayout type={"subscription"} title={"Add Subscription"} api={Apis.addSubscription}/> */}

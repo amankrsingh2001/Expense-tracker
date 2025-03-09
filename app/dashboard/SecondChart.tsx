@@ -7,9 +7,8 @@ interface Data {
 }
 export default function SecondChart({data}:{data:Data[]}) {
 
-
   const COLORS = ["#1863db", "#4287f5", "#0b709c", "#4381e6", "#487ff7", "#0e3ae8", "#035f87"];
-
+ 
   return (
     <div className="border-2 w-[45vw] h-[60vh] mt-10 rounded-md">
       <ResponsiveContainer width="100%"  height="100%" >

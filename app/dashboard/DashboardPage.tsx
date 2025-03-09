@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TotalAmount,
   TotalAmountInvested,
@@ -13,45 +13,116 @@ import SecondChart from "./SecondChart";
 import FirstChart from "./FirstChart";
 import { DateRange } from "react-day-picker";
 import { addDays } from "date-fns";
+import { GetTotalIncome, IncomeType } from "../api/income/api";
+import { ExpenseType, GetAllExpense } from "./expense/expenseApi";
+import { getInvestmentData, InvestmentType } from "./investment/investment";
+import { getSubsData, SubscriptionType } from "./subscription/subsApi";
+import DashboardLayoutHeader from "./DashboardLayoutHeader";
 
 interface DashboardData {
-  getIncome: any;
-  getExpense: any;
-  getInvestment: any;
-  getSubscription: any;
+  initIncomeVal: IncomeType[];
+  initExpenseVal: ExpenseType[];
+  initInvestmentVal: InvestmentType[];
+  initSubscription: SubscriptionType[];
 }
 
+type ChartDataItem = {
+  name: string;
+  value: number;
+};
+
+
 export default function DashboardPage({
-  getIncome,
-  getExpense,
-  getInvestment,
-  getSubscription,
+  initIncomeVal,
+  initExpenseVal,
+  initInvestmentVal,
+  initSubscription,
 }: DashboardData) {
+
 
   const [date, setDate] = useState<DateRange >({
     from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
     to: addDays(new Date(Date.now()), 0),
   });
 
-  const totalIncome = TotalAmount(getIncome);
-  const totalExpense = TotalAmount(getExpense);
-  const totalInvestment = TotalAmountInvested(getInvestment);
-  const totalSubscription = TotalSubscription(getSubscription);
-  const avilableBalance =
-    totalIncome - (totalExpense + totalInvestment + totalSubscription);
+  const [income, setIncome] = useState<IncomeType[]>(initIncomeVal)
+  const [expense, setExpense] = useState<ExpenseType[]>(initExpenseVal)
+  const [investment, setInvestment] = useState<InvestmentType[]>(initInvestmentVal)
+  const [subscription, setSubscription] = useState<SubscriptionType[]>(initSubscription)
+  const [chartData, setChartData] = useState<ChartDataItem[]>([]);
+
+  const getIncomeValue = async ()=>{
+    const incomeWithDate = await GetTotalIncome(date)
+    return incomeWithDate
+  }
+
+  const getExpenseValue = async()=>{
+    const expenseWithDate = await GetAllExpense(date)
+    return expenseWithDate
+  }
+
+  const getInvestmentValue = async()=>{
+    const investmentWithDate = await getInvestmentData(date)
+    return investmentWithDate
+  }
+
+  const getSubscriptionValue = async()=>{
+    const subscriptionWithDate = await getSubsData(date)
+    return subscriptionWithDate
+  }
+
+
+  useEffect(()=>{
+    const setIncomeValue = async()=>{
+      const incomeValue = await getIncomeValue()
+      setIncome(incomeValue)
+    }  
+    const setInvestmentValue =async()=>{
+      const investmentValue = await getInvestmentValue()
+      setInvestment(investmentValue)
+    }
+    const setSubscriptionValue =async()=>{
+      const subscriptionValue = await getSubscriptionValue()
+      setSubscription(subscriptionValue)
+    }
+    const setExpenseValue = async()=>{
+      const expenseValue = await getExpenseValue()
+      setExpense(expenseValue)
+    }
+
+    
+    setIncomeValue()
+    setExpenseValue()
+    setInvestmentValue()
+    setSubscriptionValue()
+    
+  },[date])
+
+  useEffect(() => {
+    setChartData([
+      { name: "Income", value: totalIncome },
+      { name: "Expense", value: totalExpense },
+      { name: "Investment", value: totalInvestment },
+      { name: "Subscription", value: totalSubscription },
+      { name: "Available Balance", value: totalIncome - (totalExpense + totalInvestment + totalSubscription) },
+    ]);
+  }, [income, expense, investment, subscription, date]);
+
+
+
+
+  const totalIncome = TotalAmount(income);
+  const totalExpense = TotalAmount(expense);
+  const totalInvestment = TotalAmountInvested(investment);
+  const totalSubscription = TotalSubscription(subscription);
+  const avilableBalance = totalIncome - (totalExpense + totalInvestment + totalSubscription);
 
   
-  const data = [
-    { name: "Income", value: totalIncome },
-    { name: "Expense", value: totalExpense },
-    { name: "Investment", value: totalInvestment },
-    { name: "Subscription", value: totalSubscription },
-    { name: "Avilable Balance", value: avilableBalance },
-  ];
+
 
   return (
     <div>
-      <LayoutHeader title={"Overview"} showDateCard={true} date={date} setDate={setDate}/>
+      <DashboardLayoutHeader title={"Overview"} showDateCard={true} date={date} setDate={setDate}/>
       <div className=" px-4 py-4 flex flex-col gap-4">
         <div className="flex  gap-10">
           <ShowCard
@@ -77,8 +148,8 @@ export default function DashboardPage({
           />
         </div>
         <div className="flex justify-around">
-          <FirstChart expense={getExpense} />
-          <SecondChart data={data} />
+          <FirstChart expense={expense} />
+          <SecondChart data={chartData} />
         </div>
       </div>
     </div>

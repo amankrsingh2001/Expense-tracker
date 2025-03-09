@@ -16,9 +16,9 @@ export const loginUser = z.object({
 export const IncomeValidation = z.object({
     name:z.string(),
     notes:z.string().optional(),
-    amount:z.string(),
+    amount:z.string() ,
     category:z.string(),
-    recievedDate:z.string(),
+    recievedDate:z.string().optional(),
 })
 
 export const ExpenseValidation = z.object({
