@@ -6,14 +6,18 @@ import { DatePickerWithRange } from '../DatePicker';
 import DateSelect from '../DateSelect';
 
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-
+import { SetStateAction, useState } from 'react';
+import { DateRange } from 'react-day-picker';
 
 interface LayoutValue{
     title:string,
-    showDateCard:boolean
+    showDateCard:boolean,
+    date:DateRange,
+    setDate:React.Dispatch<SetStateAction<DateRange>> 
 }
-export default function LayoutHeader({title, showDateCard}:LayoutValue){
+
+export default function LayoutHeader({title, showDateCard, date, setDate}:LayoutValue){
+    console.log(date)
     const [feedBackModal, setFeedBackModal] = useState<boolean>(false)
 
     return  (<div className=" border-b-[1px] flex flex-col w-full h-[7vh]">
@@ -24,7 +28,7 @@ export default function LayoutHeader({title, showDateCard}:LayoutValue){
               <div className="relative flex  gap-10 justify-around" >
                        {
                          showDateCard &&  <div className="flex">
-                      <DatePickerWithRange />
+                      <DatePickerWithRange date = {date} setDate={setDate}/>
                       <DateSelect/>
                       </div>}
                       <div className="relative">

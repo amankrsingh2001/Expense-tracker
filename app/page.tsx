@@ -7,17 +7,13 @@ import Hero from "@/components/LandingPage/Hero";
 import Navbar from "@/components/LandingPage/Navbar";
 import Pricing from "@/components/LandingPage/Pricing";
 
-// import { authOptions } from "./api/auth/[...nextauth]/options";
-// import CheckAuth from "@/components/LandingPage/CheckAuth";
-// import { authOptions } from "@/app/api/auth/[...nextauth]/options"
+
 import { getSession, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast";
 
 export default function Home() {
-   
-
 
       const router = useRouter()
       
@@ -25,6 +21,7 @@ export default function Home() {
           const session = await getSession()
           return session?.expires
       }
+
       
       useEffect(()=>{
           const getExpires = async ()=>{
@@ -50,8 +47,9 @@ export default function Home() {
                     secondary:'#f06559'
                   }
               })
-              return;
+                 return;
               }
+
 
               if(expires>currentTime){
                 toast.success("Session Active",{
@@ -75,6 +73,8 @@ export default function Home() {
               }
           getExpires()
       },[])
+
+
   return (
     <div suppressHydrationWarning>
   

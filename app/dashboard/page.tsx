@@ -15,7 +15,6 @@ export default async function Dashboard(){
     const subscription = await getSubsData()
     
     return (<div className={`w-full`}>
-
         
         <div >
             <DashboardPage getIncome={getIncome} getExpense={expense} getInvestment = {investment} getSubscription={subscription}/>

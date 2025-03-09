@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   TotalAmount,
   TotalAmountInvested,
@@ -11,7 +11,8 @@ import { IndianRupee } from "lucide-react";
 import ShowCard from "@/components/ShowCard";
 import SecondChart from "./SecondChart";
 import FirstChart from "./FirstChart";
-
+import { DateRange } from "react-day-picker";
+import { addDays } from "date-fns";
 
 interface DashboardData {
   getIncome: any;
@@ -26,7 +27,11 @@ export default function DashboardPage({
   getInvestment,
   getSubscription,
 }: DashboardData) {
-  // const [date, setDate] = useState<any>(new Date(Date.now()))
+
+  const [date, setDate] = useState<DateRange >({
+    from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    to: addDays(new Date(Date.now()), 0),
+  });
 
   const totalIncome = TotalAmount(getIncome);
   const totalExpense = TotalAmount(getExpense);
@@ -35,18 +40,18 @@ export default function DashboardPage({
   const avilableBalance =
     totalIncome - (totalExpense + totalInvestment + totalSubscription);
 
-    console.log(totalIncome)
-    const data = [
-      {name:"Income", value:totalIncome},
-      {name:"Expense", value:totalExpense},
-      {name:'Investment', value:totalInvestment},
-      {name:"Subscription", value:totalSubscription},
-      {name:"Avilable Balance",value:avilableBalance}
-    ]
+  
+  const data = [
+    { name: "Income", value: totalIncome },
+    { name: "Expense", value: totalExpense },
+    { name: "Investment", value: totalInvestment },
+    { name: "Subscription", value: totalSubscription },
+    { name: "Avilable Balance", value: avilableBalance },
+  ];
 
   return (
     <div>
-      <LayoutHeader title={"Overview"} showDateCard={true} />
+      <LayoutHeader title={"Overview"} showDateCard={true} date={date} setDate={setDate}/>
       <div className=" px-4 py-4 flex flex-col gap-4">
         <div className="flex  gap-10">
           <ShowCard
@@ -72,12 +77,10 @@ export default function DashboardPage({
           />
         </div>
         <div className="flex justify-around">
-          <FirstChart expense={getExpense}/>
-            <SecondChart data={data} />
+          <FirstChart expense={getExpense} />
+          <SecondChart data={data} />
         </div>
-
       </div>
-
     </div>
   );
 }
