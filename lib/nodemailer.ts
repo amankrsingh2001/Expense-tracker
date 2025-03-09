@@ -1,7 +1,8 @@
 import nodemailer from "nodemailer";
+import { customError } from "./Error";
 
 export const mailSender = async (email: string, otp: string) => {
-
+  console.log(email,"This is the email")
   try {
     let transporter = nodemailer.createTransport({
 
@@ -68,6 +69,7 @@ export const mailSender = async (email: string, otp: string) => {
 
     return info;
   } catch (error) {
-    throw new Error("Fail to send mail");
+    const err =  (error as Error).message
+    throw new customError(err, 411);
   }
 };

@@ -71,6 +71,7 @@ export const POST = async (req: NextRequest) => {
       }
     );
   } catch (error) {
+    console.log(error)
     const err = (error as Error).message;
     return NextResponse.json(
       {

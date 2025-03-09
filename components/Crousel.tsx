@@ -14,19 +14,19 @@ export default function Crousel(){
             CrouselData.map((crousel, index)=>{
              
                 return (
-                <>
+            
                     <div className="w-full " key={index}>
                         <CrouselSection setActiveIndex={setActiveIndex} index={index} isActive={activeIndex} title={crousel.title} description={crousel.description} icon={<crousel.icon></crousel.icon>} />
                  </div>
                  
-                </>)
+                )
              })
         }
     </div>
         <div className="">
             {
                 CrouselData.map((crousel, index)=>{
-                    return <div>
+                    return <div key={index}>
                       {
                         index === activeIndex && <div>
                             <video src={`crousel.video`}></video>

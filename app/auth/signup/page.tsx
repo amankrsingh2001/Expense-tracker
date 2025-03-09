@@ -32,7 +32,7 @@ export default function SignupPage() {
   const {register, handleSubmit} = useForm<IFormValue>()
  
   const registerHandler = async(data:IFormValue)=>{
-    const id = toast.loading('...loading')
+    const id = toast.loading('...sending Otp')
     const parseData = registerUser.safeParse(data)
     if(!parseData.success){
       toast.error("Please enter valid credentials",{
@@ -55,6 +55,7 @@ export default function SignupPage() {
       })
       router.push('/auth/verify')
     } catch (error) {
+      console.log(error)
       if(axios.isAxiosError(error)){
         toast.error(error.response?.data.message || error.message,{
           id:id

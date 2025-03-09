@@ -72,13 +72,16 @@ export const authOptions:NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.email = user.email;
+        token.expires = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
       }
       return token;
     },
-    async session({ session, token }: { session: any; token: JWT }) {
+    async session({ session, token }: { session: any; token: JWT & { expires?: number } }) {
+     
       if (session.user) {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
+        session.expires = token.expires ? new Date(token.expires * 1000).toISOString():null;
       }
       return session;
     },
