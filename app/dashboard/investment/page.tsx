@@ -1,6 +1,4 @@
 import LayoutHeader from "@/components/Layout/LayoutHeader";
-import ModalLayout from "@/components/Modals/ModalLayout";
-import { Apis } from "@/lib/Apis";
 import { getInvestmentData } from "./investment";
 import InvestmentPage from "./InvestmentPage";
 import { DateRange } from "react-day-picker";

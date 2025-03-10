@@ -26,7 +26,7 @@ export default function ExpensePage({ expense }: ExpenseData) {
   const [expenseValue, setExpenseValue] = useState<any>(expense);
 
   const totalAmount = TotalAmount(expenseValue);
-
+  
 
   return (
     <div className=" px-4 py-4 flex flex-col gap-4">

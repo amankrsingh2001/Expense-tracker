@@ -2,8 +2,6 @@ import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Cart
 import { ExpenseType } from "./expense/expenseApi";
 
 
-
-
 export default function ExpenseChart({expense}:{expense:ExpenseType[]}) {
 
   return (
@@ -18,9 +16,14 @@ export default function ExpenseChart({expense}:{expense:ExpenseType[]}) {
           />
           <YAxis 
             tick={{ fontSize: 12 }} 
-            tickFormatter={(price) => `₹ ${price.toLocaleString()}`} 
+            tickFormatter={(price) => `₹${price.toLocaleString()}`} 
           />
-          <Tooltip formatter={(price) => `₹ ${price}`} />
+       <Tooltip
+          formatter={(value) => `₹${value}`}
+          labelFormatter={(label) => new Date(label).toLocaleDateString()}
+        />
+
+
           <Legend />
           <Bar dataKey="price" fill="#4287f5" barSize={80} />
         </BarChart>

@@ -43,10 +43,15 @@ export default function SubscriptionModal({title,modal,setModal,api, setSubsValu
       addData.data.subscription.createdAt = new Date(addData.data.subscription.createdAt)
       addData.data.subscription.renewal_date = new Date(addData.data.subscription.renewal_date)
       setSubsValue((prev:any)=>[...prev, addData.data.subscription])
+      setModal(!modal)
     } catch (error) { 
-      console.log(error)
       if(axios.isAxiosError(error)){
         toast.error("axios Erros",{
+          id:id
+        })
+      }else{
+        const err = (error as Error).message
+        toast.error(err || "Something went wrong",{
           id:id
         })
       }

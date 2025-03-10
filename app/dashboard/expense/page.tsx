@@ -20,7 +20,7 @@ export default async function Expense(){
         <LayoutHeader title={"Expense"}/>
         <div>
 
-    <ExpensePage expense = {expense}/>
+         <ExpensePage expense = {expense}/>
         </div>
     </div>
 }

@@ -30,6 +30,9 @@ export default function Home() {
             })
               const expires = await checkAuth()
               const currentTime = new Date(Date.now()).toISOString()
+              console.log(expires)
+              console.log(currentTime)
+              
               if(expires == null) {
                 toast.error("Session Timeout, Please Login Again",{
                   id:id,
@@ -49,8 +52,6 @@ export default function Home() {
               })
                  return;
               }
-
-
               if(expires>currentTime){
                 toast.success("Session Active",{
                   id:id,
@@ -65,13 +66,26 @@ export default function Home() {
                   position:"top-right"
                 })
                   router.push("/dashboard")
+              }else{
+                toast.error("Session Timeout, Please Login Again",{
+                  id:id,
+                  position:"top-right",
+                  style: {
+                    background: "#eb1e0c", 
+                    color: "#fff", 
+                    fontWeight: "medium",
+                    borderRadius: "8px",
+                    padding: "12px",
+                    boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
+                  },
+                  iconTheme:{
+                    primary:"#fff",
+                    secondary:'#f06559'
+                  }
+              })
               }
-              
-
-              
-              
               }
-          getExpires()
+          getExpires() 
       },[])
 
 

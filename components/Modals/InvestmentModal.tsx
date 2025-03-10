@@ -34,6 +34,7 @@ export default function InvestmentModal({title,modal,setModal,api, setInvestValu
     try {
       const addData = await axios.post(api, data)
 
+      // edit tiast
       toast.success('Added',{
         id:id
       })
@@ -41,11 +42,16 @@ export default function InvestmentModal({title,modal,setModal,api, setInvestValu
       addData.data.investment.createdAt = new Date(addData.data.investment.createdAt)
 
       setInvestValue((prev:any)=>[...prev, addData.data.investment])
-
+      setModal(!modal)
     } catch (error) { 
-      console.log(error)
+
       if(axios.isAxiosError(error)){
         toast.error("axios Erros",{
+          id:id
+        })
+      }else{
+        const err = (error as Error).message
+        toast.error(err,{
           id:id
         })
       }

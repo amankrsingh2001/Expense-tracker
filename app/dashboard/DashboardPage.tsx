@@ -18,6 +18,8 @@ import { ExpenseType, GetAllExpense } from "./expense/expenseApi";
 import { getInvestmentData, InvestmentType } from "./investment/investment";
 import { getSubsData, SubscriptionType } from "./subscription/subsApi";
 import DashboardLayoutHeader from "./DashboardLayoutHeader";
+import ModalLayout from "@/components/Modals/ModalLayout";
+import { Apis } from "@/lib/Apis";
 
 interface DashboardData {
   initIncomeVal: IncomeType[];
@@ -151,6 +153,12 @@ export default function DashboardPage({
           <FirstChart expense={expense} />
           <SecondChart data={chartData} />
         </div>
+         <ModalLayout
+                type={"expense"}
+                title={"Add Income"}
+                api={Apis.addExpense}
+                setExpenseValue={setExpense}
+              />
       </div>
     </div>
   );
