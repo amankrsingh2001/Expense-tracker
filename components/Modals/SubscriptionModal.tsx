@@ -8,8 +8,6 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectGroup,
-  SelectLabel,
 } from "../ui/select";
 import CloseIcon from "../icons/CloseIcon";
 import { useForm } from 'react-hook-form';
@@ -21,19 +19,42 @@ interface ModalData {
   modal: boolean;
   setModal: any;
   api:string
-  setSubsValue:any
+  setSubsValue?:any
+  data?:any
+  edit:boolean
 }
-export default function SubscriptionModal({title,modal,setModal,api, setSubsValue}: ModalData) {
+export default function SubscriptionModal({title,modal,setModal, api, setSubsValue, data, edit}: ModalData) {
 
-  const {register, handleSubmit, setValue}  = useForm()
+  const {register, handleSubmit, setValue, watch}  = useForm({
+    defaultValues:data, 
+  })
+ 
+
 
   const formHandler = async(data:any)=>{
 
-    console.log(data)
+    const id = toast.loading('...loading')
+    if(edit){
+      toast.loading("...Editing",{
+        id:id
+      })
+      const editData = await axios.put('/api/subscription', data)
+      toast.success('edited',{
+        id:id
+      })
+      editData.data.data.createdAt = new Date(editData.data.data.createdAt)
+      editData.data.data.renewal_date = new Date(editData.data.data.renewal_date)
+      setSubsValue((prev: any) =>
+        prev.map((it: any) =>
+            it.id === editData.data.data.id ? { ...it, ...editData.data.data }  : it                                // Keep other items unchanged
+        )
+    );
+      setModal(false)
+      
 
-    const id = toast.loading('...Adding')
-
-    try {
+      return;
+    }else{
+      try {
       
       const addData = await axios.post(api, data)
 
@@ -55,7 +76,8 @@ export default function SubscriptionModal({title,modal,setModal,api, setSubsValu
           id:id
         })
       }
-    }    
+    }  
+    } 
   }
   
   return (
@@ -76,6 +98,7 @@ export default function SubscriptionModal({title,modal,setModal,api, setSubsValu
               setModal(!modal);
             }}
             className="absolute right-4 top-4"
+            type="button"
           >
             <CloseIcon />
           </button>
@@ -131,13 +154,13 @@ export default function SubscriptionModal({title,modal,setModal,api, setSubsValu
                     defaultValue={new Date().toISOString().split("T")[0]}
                   />
                 </div>
-                <div>
+                <div className="relative">
                   <Label htmlFor="paying" className="text-md">Paying</Label>
-                  <Select onValueChange={(value)=>setValue('paid', value)}>
-                    <SelectTrigger className="w-[140px] border-2">
+                  <Select onValueChange={(value)=>setValue('paid', value)} value={watch('paid')}  onOpenChange={(open) => console.log("Dropdown is open:", open)}>
+                    <SelectTrigger className="w-[140px] border-2" >
                       <SelectValue placeholder="Monthly" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="absolute z-10 bg-black">
                       <SelectItem value="monthly">Monthly</SelectItem>
                       <SelectItem value="yearly">Yearly</SelectItem>
                     </SelectContent>

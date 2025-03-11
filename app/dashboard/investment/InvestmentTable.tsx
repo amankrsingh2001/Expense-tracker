@@ -12,8 +12,11 @@ import {
   } from "@/components/ui/table"
 import { DateFormatter } from "@/lib/DateFormatter"
 import axios from "axios"
-import { IndianRupee, Pen, Trash, Trash2 } from "lucide-react"
+import { Edit2, IndianRupee, Pen, Trash, Trash2 } from "lucide-react"
 import toast from "react-hot-toast"
+import InvestmentModal from '../../../components/Modals/InvestmentModal';
+import { useState } from "react"
+import { InvestmentType } from "./investment"
   
   
   interface TableFormat{
@@ -33,7 +36,10 @@ import toast from "react-hot-toast"
     setInvestValue:any
   }
   export default function InvestmentTable({formatTable, tableData, setInvestValue}:TableData) {
-    
+
+    const [investModal, setInvestModal] = useState<boolean>(false)
+    const [investData, setInvestData] = useState<InvestmentType | null>(null)
+
     const deleteHandler = async(data:any)=>{
       const id = toast.loading("...Deleting")
         try {
@@ -64,6 +70,10 @@ import toast from "react-hot-toast"
         }
       }
 
+      const editHandler = async(data:InvestmentType)=>{
+        setInvestData(data)
+        setInvestModal(true)
+      }
 
     return (
 
@@ -107,7 +117,7 @@ import toast from "react-hot-toast"
       
         <TableCell className="p-4 text-center capitalize ">{data.notes || "No notes added"}</TableCell>
         <TableCell className="p-4 text-center space-x-3">
-          <button><Pen className="text-black w-4 h-4"/> </button>
+          <button onClick={()=>editHandler(data)}><Edit2  className="text-black w-4 h-4"/></button>
           <button onClick={()=>deleteHandler(data)} className=""><Trash2 className="text-black w-4 h-4"/></button>
         </TableCell>
       </TableRow>
@@ -118,7 +128,9 @@ import toast from "react-hot-toast"
   
 </Table>
         </div>
-       
+          {
+            investModal && <InvestmentModal title="Edit Investment" modal={investModal} setModal={setInvestModal} api="" edit={true} setInvestValue={setInvestValue} data={investData}/>
+          }     
       </div>
 
 

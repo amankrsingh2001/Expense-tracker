@@ -40,21 +40,21 @@ export default function ModalLayout({type, title, api, setIncomeValue, setExpens
     </div>
 
     {
-      type == "income" && modal &&  <IncomeModal  title={title} modal={modal} setModal={setModal} api={api} setIncomeValue={setIncomeValue}/>
+      type == "income" && modal &&  <IncomeModal  title={title} modal={modal} setModal={setModal} api={api} setIncomeValue={setIncomeValue} edit={false}/>
     }
 
     {
-      type == "expense" && modal && <ExpenseModal  title ={title} modal={modal} setModal={setModal} api={api} setExpenseValue={setExpenseValue}/>
+      type == "expense" && modal && <ExpenseModal  title ={title} modal={modal} setModal={setModal} api={api} setExpenseValue={setExpenseValue} edit={false}/>
     }
     
 
     {
-      type == "investment" && modal && <InvestmentModal title ={title} modal={modal} setModal={setModal} api={api} setInvestValue={setInvestValue}/>
+      type == "investment" && modal && <InvestmentModal title ={title} modal={modal} setModal={setModal} api={api} setInvestValue={setInvestValue} edit={false}/>
     }
 
     
     {
-      type == "subscription" && modal && <SubscriptionModal title ={title} modal={modal} setModal={setModal} api={api} setSubsValue={setSubsValue}/>
+      type == "subscription" && modal && <SubscriptionModal title ={title} modal={modal} setModal={setModal} api={api} setSubsValue={setSubsValue} edit = {false}/>
     }
   </div>
 }

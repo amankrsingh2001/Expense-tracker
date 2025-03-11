@@ -8,8 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectGroup,
-  SelectLabel,
+
 } from "../ui/select";
 import CloseIcon from "../icons/CloseIcon";
 import { useForm } from 'react-hook-form';
@@ -22,40 +21,83 @@ interface ModalData {
   setModal: any;
   api:string
   setInvestValue:any
+  edit:boolean
+  data?:any
 }
-export default function InvestmentModal({title,modal,setModal,api, setInvestValue}: ModalData) {
+export default function InvestmentModal({title,modal,setModal,api, setInvestValue, edit, data}: ModalData) {
 
-  const {register, handleSubmit, setValue}  = useForm()
+  const {register, handleSubmit, setValue}  = useForm({
+    defaultValues: { 
+      ...data ?? {},         
+      stockPrice: data?.price ?? 0,   
+      units: data?.unit ?? 1       
+  }
+  })
 
   const formHandler = async(data:any)=>{
 
     const id = toast.loading('...Adding')
-    
-    try {
-      const addData = await axios.post(api, data)
-
-      // edit tiast
-      toast.success('Added',{
-        id:id
-      })
-
-      addData.data.investment.createdAt = new Date(addData.data.investment.createdAt)
-
-      setInvestValue((prev:any)=>[...prev, addData.data.investment])
-      setModal(!modal)
-    } catch (error) { 
-
-      if(axios.isAxiosError(error)){
-        toast.error("axios Erros",{
+    if(edit){
+      try {
+        toast.loading('...Editing',{
           id:id
         })
-      }else{
-        const err = (error as Error).message
-        toast.error(err,{
-          id:id
-        })
+        const editData = await axios.put('/api/investment', data) 
+            
+            editData.data.update.createdAt = new Date(editData.data.update.createdAt)
+            setInvestValue((prev: any) =>
+              prev.map((it: any) =>
+                  it.id === editData.data.update.id ? { ...it, ...editData.data.update }  : it                                // Keep other items unchanged
+              )
+          );
+            setModal(false)
+            toast.success('...Edited',{
+              id:id
+            })
+
+            return;
+      } catch (error) {
+        if(axios.isAxiosError(error)){
+          toast.error("Network Erros",{
+            id:id
+          })
+        }else{
+          const err = (error as Error).message
+          toast.error(err,{
+            id:id
+          })
+        }
       }
-    }    
+    } else{
+      try {
+        const addData = await axios.post(api, data)
+  
+        // edit toast
+        toast.success('Added',{
+          id:id
+        })
+  
+        addData.data.investment.createdAt = new Date(addData.data.investment.createdAt)
+  
+        setInvestValue((prev:any)=>[...prev, addData.data.investment])
+        setModal(!modal)
+      } catch (error) { 
+  
+        if(axios.isAxiosError(error)){
+          toast.error("axios Erros",{
+            id:id
+          })
+        }else{
+          const err = (error as Error).message
+          toast.error(err,{
+            id:id
+          })
+        }
+      } 
+    }   
+
+
+      
   }
   
   return (

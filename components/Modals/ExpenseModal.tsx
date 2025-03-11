@@ -15,6 +15,7 @@ import CloseIcon from "../icons/CloseIcon";
 import { useForm } from 'react-hook-form';
 import toast from "react-hot-toast";
 import axios from "axios";
+import { ExpenseType } from "@/app/dashboard/expense/expenseApi";
 
 interface ModalData {
   title: string;
@@ -22,32 +23,76 @@ interface ModalData {
   setModal: any;
   api:string,
   setExpenseValue:any
+  edit:boolean
+  data?: ExpenseType | null
 }
 
 
-export default function ExpenseModal({title ,modal, setModal, api, setExpenseValue}: ModalData) {
+export default function ExpenseModal({title , modal, setModal, api, setExpenseValue, edit, data}: ModalData) {
 
-  const {register, handleSubmit, setValue}  = useForm()
+
+  const {register, handleSubmit, setValue}  = useForm({
+    defaultValues:{ 
+      ...(data ?? {}), 
+      spentDate: data?.createdAt ?? new Date(Date.now()),
+      paidVia:data?.paid_via
+    }
+  })
 
   const formHandler = async(data:any)=>{
     const id = toast.loading('...Adding')
-    try {
-      
-      const addData = await axios.post(api, data)
-
-      toast.success('Added',{
-        id:id
-      })
-      addData.data.expense.createdAt = new Date(addData.data.expense.createdAt)
-      setExpenseValue((prev:any)=>[...prev, addData.data.expense])
-    } catch (error) { 
-
-      if(axios.isAxiosError(error)){
-        toast.error("axios Erros",{
+    if(edit){
+      try {
+        const editExpense = await axios.put(api, data)
+        editExpense.data.updateExpense.createdAt = new Date(editExpense.data.updateExpense.createdAt)
+        setExpenseValue((prev: any) =>
+          prev.map((it: any) =>
+              it.id === editExpense.data.updateExpense.id ? { ...it, ...editExpense.data.updateExpense }  : it                                // Keep other items unchanged
+          )
+      );
+        setModal(false)
+        toast.success('...Edited',{
           id:id
         })
+      } catch (error) {
+        console.log(error)
+        if(axios.isAxiosError(error)){
+          toast.error("axios Erros",{
+            id:id
+          })
+        }else{
+          const err = (error as Error).message
+          toast.error(err,{
+            id:id
+          })
+        }
       }
-    }    
+
+    }else{
+      try {
+      
+        const addData = await axios.post(api, data)
+  
+        toast.success('Added',{
+          id:id
+        })
+        addData.data.expense.createdAt = new Date(addData.data.expense.createdAt)
+        setExpenseValue((prev:any)=>[...prev, addData.data.expense])
+      } catch (error) { 
+  
+        if(axios.isAxiosError(error)){
+          toast.error("axios Erros",{
+            id:id
+          })
+        }else{
+          const err = (error as Error).message
+          toast.error(err,{
+            id:id
+          })
+        }
+      }
+    }
+        
   }
   
   return (
@@ -163,7 +208,7 @@ export default function ExpenseModal({title ,modal, setModal, api, setExpenseVal
 
                 <div className="w-[48%] ">
                   <Label className="text-md">Paid Via</Label>
-                  <Select onValueChange={(value)=>setValue("paidVia", value)}>
+                  <Select onValueChange={(value)=>setValue("paidVia", value)} >
                     <SelectTrigger className=" border-2">
                       <SelectValue placeholder="Ads" />
                     </SelectTrigger>

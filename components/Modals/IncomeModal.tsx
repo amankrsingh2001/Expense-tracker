@@ -15,6 +15,8 @@ import CloseIcon from "../icons/CloseIcon";
 import { useForm } from 'react-hook-form';
 import toast from "react-hot-toast";
 import axios from "axios";
+import { IncomeType } from "@/app/api/income/api";
+import { ExpenseType } from "@/app/dashboard/expense/expenseApi";
 
 interface ModalData {
   title: string;
@@ -22,32 +24,74 @@ interface ModalData {
   setModal: any;
   api:string,
   setIncomeValue:any
+  edit:boolean
+  data?:IncomeType | null
 }
-export default function IncomeModal({title,modal,setModal,api, setIncomeValue}: ModalData) {
-
-  const {register, handleSubmit, setValue}  = useForm()
+export default function IncomeModal({title, modal, setModal, api, setIncomeValue, edit, data}: ModalData) {
+  const {register, handleSubmit, setValue}  = useForm({
+    defaultValues:  { 
+      ...(data ?? {}), 
+      recievedDate: data?.createdAt ?? new Date(Date.now())
+    }
+  })
 
   const formHandler = async(data:any)=>{
     const id = toast.loading('...Adding')
-    try {
-      
-      const addData = await axios.post(api, data)
-     
-      toast.success('Added',{
-        id:id
-      })    
-      addData.data.newIncome.createdAt = new Date(addData.data.newIncome.createdAt)
+    if(edit){
+      try {
+        toast.loading('...Editing',{id:id})
+        const editIncome = await axios.put(api, data)
+        editIncome.data.updateIncome.createdAt = new Date(editIncome.data.updateIncome.createdAt)
+        setIncomeValue((prev: any) =>
+          prev.map((it: any) =>
+              it.id === editIncome.data.updateIncome.id ? { ...it, ...editIncome.data.updateIncome }  : it                                // Keep other items unchanged
+          )
+      );
 
-      setModal(false)
-      setIncomeValue((prev:any)=>[...prev, addData.data.newIncome])
-    } catch (error) { 
-      console.log(error)
-      if(axios.isAxiosError(error)){
-        toast.error("axios Erros",{
+        setModal(false)
+        toast.success("Edited Income",{
           id:id
         })
+        
+      } catch (error) {
+        console.log(error)
+        if(axios.isAxiosError(error)){
+          toast.error("axios Erros",{
+            id:id
+          })
+        }else{
+          const err = (error as Error).message
+          toast.error(err,{
+            id:id
+          })
+        }
       }
-    }    
+    }else{
+      try {
+      
+        const addData = await axios.post(api, data)
+       
+        toast.success('Added',{
+          id:id
+        })    
+        addData.data.newIncome.createdAt = new Date(addData.data.newIncome.createdAt)
+  
+        setModal(false)
+        setIncomeValue((prev:any)=>[...prev, addData.data.newIncome])
+      } catch (error) { 
+        if(axios.isAxiosError(error)){
+          toast.error("Netw Erros",{
+            id:id
+          })
+        }else{
+          const err = (error as Error).message
+          toast.error(err,{
+            id:id
+          })
+        }
+      } 
+    }
+      
   }
   
   return (
@@ -101,6 +145,7 @@ export default function IncomeModal({title,modal,setModal,api, setIncomeValue}: 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="recievedDate" className="text-md">Recieved Date</Label>
                 <Input
+
                 {...register("recievedDate")}
                 id="recievedDate"
                 name="recievedDate"

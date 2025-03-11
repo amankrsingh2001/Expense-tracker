@@ -146,3 +146,50 @@ export const DELETE = async (req: NextRequest) => {
     }
   }
 };
+
+export const PUT = async(req:NextRequest)=>{
+  try {
+    const data = await req.json()
+      if(!data.id){
+        throw new customError("Data Not Found", 404)
+      }
+
+      const updateExpense = await prisma.expense.update({
+        where:{
+          id:data.id,
+        },
+          data:{
+            name:data.name,
+            notes:data.notes,
+            price:parseInt(data.price),
+            category:data.category,
+            updatedAt:data.updatedAt,
+            paid_via:data.paid_via
+        }
+      })
+      return NextResponse.json({
+        success:true,
+        updateExpense:updateExpense
+      })
+  } catch (error) {
+
+        if(error instanceof customError){
+            return NextResponse.json({
+                success:false,
+                message:error.message
+            },{
+                status:error.status
+            })
+        }else{
+            const err = (error as Error).message
+            return NextResponse.json({
+                message:err,
+                success:false
+            },{
+                status:500
+            })
+        }
+    
+    
+  }
+}

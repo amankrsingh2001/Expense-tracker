@@ -2,24 +2,14 @@
 
 import { IncomeType } from "@/app/api/income/api"
 import { ExpenseType } from "@/app/dashboard/expense/expenseApi"
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table"
+import {Table,TableBody,TableCell,TableHead,TableHeader,TableRow} from "@/components/ui/table"
 import { DateFormatter } from "@/lib/DateFormatter"
 import axios from "axios"
 import { Edit2, IndianRupee, Trash2 } from "lucide-react"
 import { useState } from "react"
 import toast from "react-hot-toast"
-import IncomeModal from "./Modals/IncomeModal"
-import { usePathname } from "next/navigation"
-import { Apis } from '../lib/Apis';
+import ExpenseModal from "@/components/Modals/ExpenseModal"
+import { Apis } from "@/lib/Apis"
   
   
   interface TableFormat{
@@ -38,11 +28,12 @@ import { Apis } from '../lib/Apis';
     api:string,
     setValue:any
   }
-  export default function TableFormat({formatTable, tableData, api, setValue}:TableData) {
+  export default function ExpenseTable({formatTable, tableData, api, setValue}:TableData) {
 
     const [editModal, setEditModal]= useState<boolean>(false)
-    const [editdata, setEditData] = useState<IncomeType | null>(null)
-   
+    const [editdata, setEditData] = useState<ExpenseType | null >(null)
+    
+
     const deleteHandler = async(data:any)=>{
       const id = toast.loading('...deleting')
       try {
@@ -65,7 +56,7 @@ import { Apis } from '../lib/Apis';
       }
     }
   
-    const editHandler = async(data:IncomeType )=>{
+    const editHandler = async(data:ExpenseType)=>{
         setEditData(data)
         setEditModal(true)
     }
@@ -100,7 +91,7 @@ import { Apis } from '../lib/Apis';
     {tableData.map((data: any, index: number) => (
       <TableRow key={index} className="border-b">
         <TableCell className="p-4 text-left font-medium capitalize">{data.name}</TableCell>
-        <TableCell className="p-4 text-left flex items-center font-semibold "><IndianRupee className="w-3 h-3"/>{data.amount || data.price}</TableCell>
+        <TableCell className="p-4 text-left flex items-center font-semibold "><IndianRupee className="w-3 h-3"/>{ data.price}</TableCell>
         <TableCell className="p-4 text-left">{DateFormatter(data.createdAt)}</TableCell>
         <TableCell className="p-4 text-left capitalize">{data.category}</TableCell>
         {
@@ -120,7 +111,7 @@ import { Apis } from '../lib/Apis';
 </Table>
         </div>
         {
-          editModal &&  <IncomeModal title="Edit Income" modal={editModal} setModal={setEditModal} api={Apis.addIncome} setIncomeValue = {setValue} data={editdata} edit={true}/>
+          editModal &&  <ExpenseModal title="Edit Expense" modal={editModal} setExpenseValue={setValue} setModal={setEditModal} api={Apis.addExpense} edit={true} data={editdata}/>
         }
        
       </div>

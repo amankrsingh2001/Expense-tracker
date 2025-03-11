@@ -6,7 +6,8 @@ import ModalLayout from "../../../components/Modals/ModalLayout";
 import { TotalAmount } from "@/lib/Data";
 import ShowCard from "../../../components/ShowCard";
 import { IndianRupee } from "lucide-react";
-import TableFormat from "../../../components/Table";
+
+import ExpenseTable from "./ExpenseTable";
 
 interface ExpenseData {
   expense: any;
@@ -40,7 +41,7 @@ export default function ExpensePage({ expense }: ExpenseData) {
         />
       </div>
 
-      <TableFormat formatTable={formatTable} tableData={expenseValue} setValue={setExpenseValue} api={Apis.addExpense}/>
+      <ExpenseTable formatTable={formatTable} tableData={expenseValue} setValue={setExpenseValue} api={Apis.addExpense}/>
 
       <ModalLayout
         type={"expense"}

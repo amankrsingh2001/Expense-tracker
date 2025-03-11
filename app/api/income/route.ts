@@ -67,6 +67,9 @@ export const  POST = async(req:NextRequest)=>{
                 status:411
             })
         }
+        if(parseData.data.recievedDate == undefined){
+          throw new customError("Date isnt valid", 404)
+        }
         const createIncome = await prisma.income.create({
             data:{
                 name:parseData.data.name,
@@ -159,3 +162,49 @@ export const DELETE = async (req: NextRequest) => {
     }
   }
 };
+
+export const PUT = async(req:NextRequest)=>{
+  try {
+      const data = await req.json()
+
+      if(!data.id){
+        throw new customError("Data Not Found", 404)
+      }
+
+      const updateIncome = await prisma.income.update({
+        where:{
+          id:data.id,
+        },
+          data:{
+            name:data.name,
+            notes:data.notes,
+            amount:parseInt(data.amount),
+            category:data.category
+        }
+      })
+      return NextResponse.json({
+        success:true,
+        updateIncome:updateIncome
+      })
+  } catch (error) {
+
+        if(error instanceof customError){
+            return NextResponse.json({
+                success:false,
+                message:error.message
+            },{
+                status:error.status
+            })
+        }else{
+            const err = (error as Error).message
+            return NextResponse.json({
+                message:err,
+                success:false
+            },{
+                status:500
+            })
+        }
+    
+    
+  }
+}

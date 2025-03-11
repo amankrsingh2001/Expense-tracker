@@ -165,3 +165,55 @@ export const DELETE = async (req: NextRequest) => {
     }
   }
 };
+
+export const PUT = async(req:NextRequest)=>{
+  
+  try {
+    const data = await req.json()
+    console.log(data)
+    if(!data.id ){
+      throw new customError("Data isnt valid", 404)
+
+    }
+    const updateInvest = await prisma.investment.update({
+      where:{
+        id:data.id,
+        userId:data.userId
+      },data:{
+        name :data.name,
+        notes:data.notes,
+        price :data.stockPrice,
+        unit :data.units,     
+        updatedAt: data.updateAt,
+        category :data.category     
+      }
+    })
+
+    if(!updateInvest.id || !updateInvest.userId){
+      throw new customError("Failed to updated", 405)
+    }
+    return NextResponse.json({
+      success:true,
+      update:updateInvest,
+      message:"Updated Successfully"
+    })
+  } catch (error) {
+    if(error instanceof customError){
+        return NextResponse.json({
+            success:false,
+            message:error.message
+        },{
+            status:error.status
+        })
+    }else{
+        const err = (error as Error).message
+        return NextResponse.json({
+            message:err,
+            success:false
+        },{
+            status:500
+        })
+    }
+
+}
+}

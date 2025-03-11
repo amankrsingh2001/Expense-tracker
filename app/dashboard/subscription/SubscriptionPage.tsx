@@ -6,7 +6,6 @@ import ModalLayout from "../../../components/Modals/ModalLayout";
 import { TotalActive, TotalActiveMonthly, TotalActiveYearly, TotalAmount } from "@/lib/Data";
 import ShowCard from "../../../components/ShowCard";
 import { IndianRupee } from "lucide-react";
-
 import SubscriptionTable from "./SubscriptionTable";
 import ActiveCancelCard from "@/components/ActiveCancel";
 
@@ -60,7 +59,7 @@ export default function SubscriptionPage({ subscriptionValue }: Subs) {
         /> 
       </div>
 
-      <SubscriptionTable formatTable={formatTable} tableData={subsValue} setSubsValue={setSubsValue}/>
+      <SubscriptionTable formatTable={formatTable} tableData={subsValue} setSubsValue={setSubsValue} />
 
       <ModalLayout
         type={"subscription"}
