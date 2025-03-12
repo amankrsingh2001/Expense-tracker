@@ -107,9 +107,9 @@ import { Apis } from '../lib/Apis';
           formatTable.paidVia &&  <TableCell className="p-4 text-left capitalize">{data.paid_via}</TableCell>
         }
         <TableCell className="p-4 text-left capitalize">{data.notes}</TableCell>
-        <TableCell className="p-4 text-center space-x-3">
+        <TableCell className="p-4 text-center space-x-4">
           <button onClick={()=>editHandler(data)}><Edit2  className="text-black w-4 h-4"/></button>
-          <button onClick={()=>deleteHandler(data)} className=""><Trash2 className="text-black w-4 h-4"/></button>
+          <button onClick={()=>deleteHandler(data)} className=""><Trash2 className="text-red-700 w-4 h-4"/></button>
         </TableCell>
       </TableRow>
     ))}

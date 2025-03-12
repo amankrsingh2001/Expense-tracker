@@ -28,9 +28,9 @@ export default async function Dashboard(){
     const subscription = await getSubsData(defaultDate)
 
     
-    return (<div className={`w-full`}>
+    return (<div className={`flex-1 w-full max-w-[96%] `}>
         
-        <div >
+        <div className="w-full">
             <DashboardPage initIncomeVal={getIncome} initExpenseVal={expense} initInvestmentVal={investment} initSubscription={subscription}/>
         </div>
     </div>)

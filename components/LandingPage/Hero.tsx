@@ -8,6 +8,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import Crousel from "../Crousel";
+import StaticHeroImage from "../Static-hero-image";
 
 export default function Hero() {
   return (
@@ -41,17 +42,14 @@ export default function Hero() {
             </Button>
           </div>
         </div>
-
-        <div className="mt-20 md:mt-32 relative animate-fadeIn delay-300">
-          <div className="relative mx-auto bg-black rounded-xl overflow-hidden shadow-2xl border border-border/40 aspect-[16/9] max-w-5xl">
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-background/5 to-background">
-              <Crousel />
-            </div>
-          </div>
-          <div className="absolute -bottom-6 -right-12 h-64 w-64 bg-accent/30 rounded-full blur-3xl -z-10"></div>
-          <div className="absolute -top-6 -left-12 h-64 w-64 bg-accent/20 rounded-full blur-3xl -z-10"></div>
-        </div>
+        <div className="flex justify-center items-center">
+        <div className="relative md:w-[70%] w-full z-10 mt-20 rounded-xl border shadow-xl overflow-hidden bg-gradient-to-br from-background/80 to-background/60 backdrop-blur-sm p-2">
+                  <StaticHeroImage />
+                </div>
       </div>
+        </div>
+
+        
     </section>
   );
 }

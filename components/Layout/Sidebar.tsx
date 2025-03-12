@@ -26,7 +26,7 @@ export default function Sidebar() {
 
   const router = useRouter();
   return (
-    <div className="w-[4%]  h-screen  bg-black flex flex-col items-center">
+    <div className="w-[4%] flex bg-black h-full flex-col items-center">
       <div className="h-[3.5vw] w-[60%]  flex justify-center items-center gap-1 border-b-[1px] border-slate-400">
         <IndianRupee className="h-5 w-5 text-white" />
         <p className="font-serif text-lg text-white">TP</p>
@@ -94,7 +94,7 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="text-white  mt-auto h-[18vh] flex flex-col gap-6 ">
+      <div className="text-white  mt-auto py-6 flex flex-col gap-6 ">
         <div className="hover:bg-[#333333]  rounded-md">
           <button className="self-center px-2 py-2">
             <a href="mailto:singhamankr17@gmail.com">

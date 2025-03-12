@@ -111,11 +111,11 @@ import { SubscriptionType } from "./subsApi"
  
    <TableCell className="p-4 text-left">
      <p
-       className={`px-2 py-1 rounded-md ${
-         data.active ? "bg-green-200" : "bg-red-300"
-       }`}
+      //  className={`px-2 py-1 rounded-md ${
+      //    data.active ? "bg-green-200" : "bg-red-300"
+      //  }`}
      >
-       {data.active ? "Active" : "Cancelled"}
+       {data.active ? "🟢 Active" : "🔴 Cancelled"}
      </p>
    </TableCell>
  

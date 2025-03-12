@@ -25,7 +25,7 @@ export default function ModalLayout({type, title, api, setIncomeValue, setExpens
     const [modal, setModal] = useState<boolean>(false)
 
 
-    return   <div className="fixed bottom-7 right-7 flex flex-col items-center group">
+    return   <div className="absolute z-50 bottom-7 right-7 flex flex-col items-center group">
     <div className="group">
     <div className="relative p-3 group  rounded-full font-semibold cursor-pointer">
             <button onClick={()=>{

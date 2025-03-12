@@ -20,8 +20,9 @@ export default function Navbar() {
  
 
   return (
+
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 py-4 px-4 md:px-6 transition-all duration-350 glass border-b-2 `}
+      className={`fixed top-0 left-0 right-0 z-50 py-4 px-4 md:px-6 transition-all duration-350  border-b-2  bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60`}
     >
       <div className="container max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
