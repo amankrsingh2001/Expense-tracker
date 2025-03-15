@@ -1,5 +1,5 @@
 export default function SecondSide(){
-    return <div className="mt-3">
+    return <div className="mt-3 hidden md:block">
     <div className="space-y-4 max-w-md">
       <h2 className="text-3xl font-bold">The simplest way to track your expenses</h2>
       <p className="text-cream-100">Take control of your finances with our intuitive expense tracking solution</p>

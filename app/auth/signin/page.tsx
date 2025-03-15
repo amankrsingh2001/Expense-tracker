@@ -12,19 +12,24 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { loginUser } from "@/common/types";
 import toast from "react-hot-toast";
 
-import {  signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SecondSide from "@/components/SecondSide";
 
-
+const DemoUser = {
+  email: process.env.NEXT_PUBLIC_DEMO_EMAIL ?? "", 
+  password: process.env.NEXT_PUBLIC_DEMO_PASS ?? ""
+};
 
 interface IFormValue {
   email:string,
   password:string
 }
 
+
 export default function Login(){
     const [showPassword, setShowPassword] = useState(false)
+    const [checked, setChecked] = useState<boolean>(false)
     const {register, handleSubmit} = useForm<IFormValue>()
     const router = useRouter()
 
@@ -39,14 +44,12 @@ export default function Login(){
         }
 
         try {
-
             const result = await signIn("credentials", {
               redirect: false,
               email:parseData.data.email,
               password:parseData.data.password
             });
 
-            console.log(result)
             if(result?.ok){
               toast.success("Logged in Successfully",{
                 id:id
@@ -66,17 +69,21 @@ export default function Login(){
       }
     }
 
+    const demoLoginHandler = async(data:any)=>{
+        console.log("Clicked this bitch")
+    }
 
-    return <div className="h-screen w-screen" suppressHydrationWarning>
+
+    return <div className="h-screen w-screen flex items-center justify-center" suppressHydrationWarning>
     {/* navsection */}
-    <div className="h-[10vh] sticky"></div>
+    
 
     {/* main section */}
 
-    <div className="w-full flex justify-center items-center">
-      <div className="w-[80%]  flex justify-around border-2 border-gray-300 shadow-sm rounded-md  p-6">
+    <div className="w-full flex justify-center items-center max-w-screen-xl">
+      <div className="w-[80%] flex gap-8 justify-around border-2 border-gray-300 shadow-sm rounded-md  p-6">
         {/* first Section */}
-        <div className="w-[35%]  ml-12 py-4">
+        <div className="py-4">
           <div className="flex items-center gap-2 mb-6">
             <IndianRupee className="h-6 w-6 " />
             <h2 className="text-2xl font-bold">ExpenseTracker</h2>
@@ -130,7 +137,12 @@ export default function Login(){
           </div>
 
           <div className="flex items-center space-x-2 my-6">
-            <Checkbox id="terms" className="h-5 w-5" />
+          <Checkbox
+                  id="terms"
+                  className="h-5 w-5"
+                  checked={checked}
+                  onCheckedChange={(value)=>setChecked(value as boolean)}
+              />
             <label htmlFor="terms" className="text-sm text-gray-600">
               I agree to the{" "}
               <Link href="#" className="text-blue-600 hover:underline">
@@ -144,8 +156,9 @@ export default function Login(){
           </div>
 
 
-            <Button type="submit" className="w-full mt-6 font-md text-md h-12">Sign Up</Button>
- 
+            <Button disabled={!checked} type="submit" className="w-full mt-6 font-md text-md h-12">Sign In</Button>
+            <Button className="w-full mt-6 font-md text-md h-12" type="button" onClick={()=>signinHandler(DemoUser)}>Enter as Demo User</Button>
+
       <p className="text-center text-l text-gray-600 mt-6">
             Don't have an Account?{" "}
             <Link href="/auth/signup" className="text-blue-600 hover:underline">
@@ -156,6 +169,8 @@ export default function Login(){
       
 
           </form>
+
+          
           
         </div>
 
@@ -164,4 +179,5 @@ export default function Login(){
       </div>
     </div>
   </div>
+
 }

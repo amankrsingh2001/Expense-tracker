@@ -30,9 +30,7 @@ export default function Home() {
             })
               const expires = await checkAuth()
               const currentTime = new Date(Date.now()).toISOString()
-              console.log(expires)
-              console.log(currentTime)
-              
+
               if(expires == null) {
                 toast.error("Session Timeout, Please Login Again",{
                   id:id,
