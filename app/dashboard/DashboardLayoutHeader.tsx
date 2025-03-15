@@ -29,7 +29,7 @@ export default function DashboardLayoutHeader({
       <div className="flex  items-center h-full  px-8 border-2 ">
         <h1 className="capitalize font-bold text-3xl">{title}</h1>
         <div className="ml-auto  ">
-          <div className="relative flex gap-10 justify-around">
+          <div className="relative flex gap-4 justify-around">
             <ModeToggle />
             {showDateCard && (
               <div className="flex">
