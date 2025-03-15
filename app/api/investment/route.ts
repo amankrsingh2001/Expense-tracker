@@ -181,8 +181,8 @@ export const PUT = async(req:NextRequest)=>{
       },data:{
         name :data.name,
         notes:data.notes,
-        price :data.stockPrice,
-        unit :data.units,     
+        price :parseInt(data.stockPrice),
+        unit :parseInt(data.units),     
         updatedAt: data.updateAt,
         category :data.category     
       }
