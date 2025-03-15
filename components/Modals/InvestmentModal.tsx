@@ -185,7 +185,8 @@ export default function InvestmentModal({title,modal,setModal,api, setInvestValu
                     <SelectTrigger className="w-full border-2">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent  position="popper"
+                      >
                       <SelectItem value="Crypto Currency">Crypto Currency</SelectItem>
                       <SelectItem value="Indian Stock">Indian Stock</SelectItem>
                       <SelectItem value="Mutual Funds">Mutual Funds</SelectItem>

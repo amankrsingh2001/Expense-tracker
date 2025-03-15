@@ -46,7 +46,7 @@ export default function SubscriptionModal({title,modal,setModal, api, setSubsVal
       editData.data.data.renewal_date = new Date(editData.data.data.renewal_date)
       setSubsValue((prev: any) =>
         prev.map((it: any) =>
-            it.id === editData.data.data.id ? { ...it, ...editData.data.data }  : it                                // Keep other items unchanged
+            it.id === editData.data.data.id ? { ...it, ...editData.data.data }  : it  // Keep other items unchanged
         )
     );
       setModal(false)
@@ -154,13 +154,19 @@ export default function SubscriptionModal({title,modal,setModal, api, setSubsVal
                     defaultValue={new Date().toISOString().split("T")[0]}
                   />
                 </div>
-                <div className="relative">
+                <div className="relative"> {/* Remove z-index here */}
                   <Label htmlFor="paying" className="text-md">Paying</Label>
-                  <Select onValueChange={(value)=>setValue('paid', value)} value={watch('paid')}  onOpenChange={(open) => console.log("Dropdown is open:", open)}>
-                    <SelectTrigger className="w-[140px] border-2" >
+                  <Select 
+                    onValueChange={(value) => setValue('paid', value)} 
+                    value={watch('paid')}
+                    onOpenChange={(open) => console.log("Dropdown is open:", open)}
+                  >
+                    <SelectTrigger className="w-[140px] border-2">
                       <SelectValue placeholder="Monthly" />
                     </SelectTrigger>
-                    <SelectContent className="absolute z-10 bg-black">
+                    <SelectContent 
+                      position="popper" 
+                    >
                       <SelectItem value="monthly">Monthly</SelectItem>
                       <SelectItem value="yearly">Yearly</SelectItem>
                     </SelectContent>

@@ -159,13 +159,13 @@ export default function ExpenseModal({title , modal, setModal, api, setExpenseVa
                 </div>
               </div>
               <div className="flex  justify-between w-full">
-                <div className="w-[48%]">
+                <div className="w-[48%] ">
                   <Label className="text-md">Category</Label>
                   <Select onValueChange={(value)=>setValue("category", value)}>
                     <SelectTrigger className="w-[200px] border-2">
                       <SelectValue placeholder="Select Category" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent position="popper" className="z-[1001]">
                       <SelectGroup>
                         <SelectLabel>Essentials</SelectLabel>
                         <SelectItem value="food">Food</SelectItem>
@@ -206,13 +206,13 @@ export default function ExpenseModal({title , modal, setModal, api, setExpenseVa
                   </Select>
                 </div>
 
-                <div className="w-[48%] ">
+                <div className="w-[48%] relative">
                   <Label className="text-md">Paid Via</Label>
                   <Select onValueChange={(value)=>setValue("paidVia", value)} >
                     <SelectTrigger className=" border-2">
                       <SelectValue placeholder="Ads" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent position="popper" className="z-[1001]">
                       <SelectItem value="UPI">UPI</SelectItem>
                       <SelectItem value="Cash">Cash</SelectItem>
                       <SelectItem value="Credit Card">Credit Card</SelectItem>

@@ -160,7 +160,7 @@ export default function IncomeModal({title, modal, setModal, api, setIncomeValue
                   <SelectTrigger className="w-[140px] border-2">
                     <SelectValue placeholder="Ads" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent position="popper" className="z-[1001]">
                     <SelectItem value="Ads">Ads</SelectItem>
                     <SelectItem value="Others">Other</SelectItem>
                     <SelectItem value="Salary">Salary</SelectItem>
