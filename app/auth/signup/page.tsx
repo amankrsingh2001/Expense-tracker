@@ -53,7 +53,6 @@ export default function SignupPage() {
       });
       router.push("/auth/verify");
     } catch (error) {
-      console.log(error);
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data.message || error.message, {
           id: id,

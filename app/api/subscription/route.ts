@@ -8,11 +8,11 @@ import { prisma } from "@/lib/prisma";
 export const POST = async(req:NextRequest)=>{
     const session = await getServerSession(authOptions)
     const data = await req.json()
-    console.log(data)
+
  
     try {
         const parseData = SubscriptionValidation.safeParse(data)
-        console.log(parseData)
+
         
         if(!parseData.success){
             throw new customError("Invaid Data", 411)
@@ -119,7 +119,7 @@ export const DELETE = async(req:NextRequest)=>{
 export const PUT = async(req:NextRequest)=>{
     try {
         const data = await req.json()
-        console.log(data)
+
 
         if(!data.id || !data.userId){
             throw new customError("Data isnt valid", 404)
@@ -133,7 +133,7 @@ export const PUT = async(req:NextRequest)=>{
                     id: data.id,
                     name: data.name,
                     notes: data.notes,
-                    price: data.price,
+                    price: parseInt(data.price),
                     updateAt: data.updateAt,
                     paid: data.paid,
                     url: data.url,

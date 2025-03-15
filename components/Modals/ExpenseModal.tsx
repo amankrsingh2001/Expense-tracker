@@ -55,7 +55,6 @@ export default function ExpenseModal({title , modal, setModal, api, setExpenseVa
           id:id
         })
       } catch (error) {
-        console.log(error)
         if(axios.isAxiosError(error)){
           toast.error("axios Erros",{
             id:id

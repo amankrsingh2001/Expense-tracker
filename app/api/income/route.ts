@@ -95,7 +95,6 @@ export const  POST = async(req:NextRequest)=>{
             throw new Error("Faild to create Income")
         }
 
-        console.log(createIncome)
       
 
         return NextResponse.json({

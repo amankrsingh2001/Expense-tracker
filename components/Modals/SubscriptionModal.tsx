@@ -32,7 +32,6 @@ export default function SubscriptionModal({title,modal,setModal, api, setSubsVal
 
 
   const formHandler = async(data:any)=>{
-
     const id = toast.loading('...loading')
     if(edit){
       toast.loading("...Editing",{

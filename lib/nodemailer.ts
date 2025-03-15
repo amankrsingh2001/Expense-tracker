@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import { customError } from "./Error";
 
 export const mailSender = async (email: string, otp: string) => {
-  console.log(email,"This is the email")
+
   try {
     let transporter = nodemailer.createTransport({
 

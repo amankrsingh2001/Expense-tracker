@@ -69,11 +69,6 @@ export default function Login(){
       }
     }
 
-    const demoLoginHandler = async(data:any)=>{
-        console.log("Clicked this bitch")
-    }
-
-
     return <div className="h-screen w-screen flex items-center justify-center" suppressHydrationWarning>
     {/* navsection */}
     

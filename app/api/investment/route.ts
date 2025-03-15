@@ -54,7 +54,7 @@ export const GET = async (req: NextRequest) => {
 
 export const POST = async (req: NextRequest) => {
   const data = await req.json();
-  console.log(data);
+
   try {
     const session = await getServerSession(authOptions);
     if (session == null || session.user == undefined) {
@@ -65,7 +65,6 @@ export const POST = async (req: NextRequest) => {
     }
     const parseData = InvestmentValidation.safeParse(data);
 
-    console.log(parseData.error);
 
     if (!parseData.success) {
       return NextResponse.json(
@@ -170,7 +169,7 @@ export const PUT = async(req:NextRequest)=>{
   
   try {
     const data = await req.json()
-    console.log(data)
+
     if(!data.id ){
       throw new customError("Data isnt valid", 404)
 
