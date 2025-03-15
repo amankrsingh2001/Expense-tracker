@@ -13,6 +13,8 @@ import { Cog } from "lucide-react";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
 
 
 export default function Sidebar() {
@@ -106,9 +108,7 @@ export default function Sidebar() {
         <div className="hover:bg-[#333333]  rounded-md">
           <button
             className="self-center px-2 py-2"
-            onClick={() => {
-              router.push("/settings");
-            }}
+            onClick={()=>toast.success('...Under Construction')}
           >
             <Cog />
           </button>
