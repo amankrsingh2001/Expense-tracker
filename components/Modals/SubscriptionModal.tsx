@@ -165,7 +165,7 @@ export default function SubscriptionModal({title,modal,setModal, api, setSubsVal
                       <SelectValue placeholder="Monthly" />
                     </SelectTrigger>
                     <SelectContent 
-                      position="popper" 
+                      position="popper" className="z-[1001]"
                     >
                       <SelectItem value="monthly">Monthly</SelectItem>
                       <SelectItem value="yearly">Yearly</SelectItem>
