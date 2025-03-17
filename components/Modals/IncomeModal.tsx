@@ -44,7 +44,7 @@ export default function IncomeModal({title, modal, setModal, api, setIncomeValue
         editIncome.data.updateIncome.createdAt = new Date(editIncome.data.updateIncome.createdAt)
         setIncomeValue((prev: any) =>
           prev.map((it: any) =>
-              it.id === editIncome.data.updateIncome.id ? { ...it, ...editIncome.data.updateIncome }  : it                                // Keep other items unchanged
+              it.id === editIncome.data.updateIncome.id ? { ...it, ...editIncome.data.updateIncome }  : it  
           )
       );
 

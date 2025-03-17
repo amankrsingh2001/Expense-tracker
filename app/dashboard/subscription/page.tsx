@@ -19,7 +19,7 @@ export default async function Subscription() {
       <LayoutHeader title={"Subscription"}  />
       <div>
         <SubscriptionPage subscriptionValue={subsData}/>
-        {/* <ModalLayout type={"subscription"} title={"Add Subscription"} api={Apis.addSubscription}/> */}
+
       </div>
     </div>
   );

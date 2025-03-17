@@ -26,7 +26,7 @@ export default function IncomePage({ income }: any) {
   return (
     <div className=" px-4 py-4 flex flex-col gap-4">
       <h3 className="text-lg font-semibold ">Summary</h3>
-      <div className="flex  gap-10">
+      <div className="flex  gap-10 flex-col md:flex-row">
         <ShowCard title={"Total Income"} Amount={income.length || 0} />
         <ShowCard
           title={"Total Amount"}

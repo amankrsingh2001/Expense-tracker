@@ -16,15 +16,15 @@ export default function LayoutHeader({ title }: LayoutValue) {
   return (
     <div className=" border-b-[1px] flex flex-col w-full h-[7vh]">
       <div className="flex text-black items-center h-full  px-8 border-2 ">
-        <h1 className="capitalize font-bold text-3xl">{title}</h1>
+        <h1 className="capitalize font-bold text-sm md:text-3xl">{title}</h1>
         <div className="ml-auto  ">
-          <div className="relative flex  gap-10 justify-around">
-            <div className="relative">
+          <div className="relative flex gap-10 justify-around">
+            <div className="relative ">
               <Button
                 onClick={() => {
                   setFeedBackModal(!feedBackModal);
                 }}
-                className="text-sm"
+                className="text-sm "
               >
                 <MessageSquarePlus /> Feedback
               </Button>

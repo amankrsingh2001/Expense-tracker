@@ -5,7 +5,7 @@ import { ExpenseType } from "./expense/expenseApi";
 export default function ExpenseChart({expense}:{expense:ExpenseType[]}) {
 
   return (
-    <div className="border-2 w-[45vw] h-[60vh] mt-10 rounded-md p-4">
+    <div className="border-2 w-full md:w-[45vw] h-[60vh] mt-10 rounded-md p-4">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={expense}>
           <CartesianGrid strokeDasharray="2 2" />
