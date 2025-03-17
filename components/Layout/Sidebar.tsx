@@ -28,11 +28,11 @@ export default function Sidebar({classname=""}:{classname?:string}) {
 
   const router = useRouter();
   return (
-    <div className={`w-[10%] sm:w-[8%] md:w-[6%]  lg:w-[4%] bg-black h-full flex-col items-center ${classname}`}>
+    <div className={`w-[10%] sm:w-[8%] md:w-[6%]  lg:w-[4%] bg-black h-full flex-col items-center ${classname} flex`}>
 
-      <div className="h-[3.5vw] w-[60%]  flex justify-center items-center gap-1 border-b-[1px] border-slate-400">
+      <div className="h-[6vh] w-[60%]  flex justify-center items-center gap-1 border-b-[1px] border-slate-400">
         <IndianRupee className="h-5 w-5 text-white" />
-        <p className="font-serif text-lg text-white">TP</p>
+        <p className="font-serif text-lg  text-white">TP</p>
       </div>
 
       <div className="text-white mt-8 flex flex-col gap-8 ">
