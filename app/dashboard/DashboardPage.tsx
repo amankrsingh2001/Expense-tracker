@@ -126,7 +126,7 @@ export default function DashboardPage({
     <div className="w-full">
       <DashboardLayoutHeader title={"Overview"} showDateCard={true} date={date} setDate={setDate} />
       <div className=" px-4 py-4 flex flex-col gap-4 justify-center items-center ">
-        <div className="flex  gap-10 flex-col md:flex-row md:flex-wrap  w-full  justify-center">
+        <div className="flex  gap-8 flex-col md:flex-row md:flex-wrap  w-full  justify-center">
           <ShowCard
             title={"Total Income"}
             Amount={totalIncome || 0}
